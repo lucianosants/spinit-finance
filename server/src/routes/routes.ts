@@ -1,8 +1,14 @@
 import { Router } from 'express';
-import { userRoutes } from './user.';
+
+import { createUser, getAllUsers } from './user';
+import { getAllIncomes, createIncome } from './incomes';
 
 const router = Router();
 
-router.post('/user', userRoutes);
+router.post('/user', createUser);
+router.get('/users', getAllUsers);
+
+router.get('/incomes', getAllIncomes);
+router.post('/incomes', createIncome);
 
 export { router };
