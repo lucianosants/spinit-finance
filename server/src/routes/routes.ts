@@ -8,7 +8,12 @@ import {
 	deleteIncome,
 	getAnIncome,
 } from './incomes';
-import { createExpense, getAllExpenses } from './expenses';
+import {
+	createExpense,
+	deleteExpense,
+	getAllExpenses,
+	updateExpense,
+} from './expenses';
 
 const router = Router();
 
@@ -24,5 +29,7 @@ router.get('/incomes/:id', getAnIncome);
 
 router.get('/expenses', getAllExpenses);
 router.post('/expenses', createExpense);
+router.patch('/expenses/:id', updateExpense);
+router.delete('/expenses/:id', deleteExpense);
 
 export { router };
