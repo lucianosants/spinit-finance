@@ -6,6 +6,7 @@ import {
 	createIncome,
 	updateIncome,
 	deleteIncome,
+	getAnIncome,
 } from './incomes';
 import { createExpense, getAllExpenses } from './expenses';
 
@@ -19,6 +20,7 @@ router.get('/incomes', getAllIncomes);
 router.post('/incomes', createIncome);
 router.patch('/incomes/:id', updateIncome);
 router.delete('/incomes/:id', deleteIncome);
+router.get('/incomes/:id', getAnIncome);
 
 router.get('/expenses', getAllExpenses);
 router.post('/expenses', createExpense);
