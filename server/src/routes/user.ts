@@ -100,4 +100,27 @@ async function getAllUsers(req: Request, res: Response) {
 	return res.status(200).json(mappedUsers);
 }
 
-export { createUser, getAllUsers };
+async function updateUser(req: Request, res: Response) {
+	const bodySchema = z.object({
+		first_name: z.string(),
+		last_name: z.string(),
+		username: z.string(),
+	});
+
+	const { id } = req.params;
+
+	const userData = bodySchema.parse(req.body);
+
+	const user = await client.user.update({
+		where: {
+			id,
+		},
+		data: {
+			...userData,
+		},
+	});
+
+	return res.status(200).json(user);
+}
+
+export { createUser, getAllUsers, updateUser };
