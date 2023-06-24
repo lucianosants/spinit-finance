@@ -31,32 +31,70 @@ async function getAllUsers(req: Request, res: Response) {
 	const users = await client.user.findMany({
 		include: {
 			incomes: true,
+			expenses: true,
 		},
 	});
 
 	const mappedUsers: UserProps[] = users.map((user) => {
-		const { id, first_name, last_name, username, email, incomes } = user;
-
-		const mappedIncomes = {
+		const {
 			id,
 			first_name,
 			last_name,
 			username,
 			email,
+			incomes,
+			expenses,
+		} = user;
+
+		const mappedIncomes = {
 			incomes: incomes.map((income) => {
 				const { id, userId, amount, description, date } = income;
 
 				return {
-					id: id,
-					userId: userId,
-					amount: amount,
-					description: description,
-					date: date,
+					id,
+					userId,
+					amount,
+					description,
+					date,
 				};
 			}),
 		};
 
-		return mappedIncomes;
+		const mappedExpenses = {
+			expenses: expenses.map((expense) => {
+				const {
+					id,
+					userId,
+					amount,
+					description,
+					date,
+					payment_method,
+					installment,
+				} = expense;
+
+				return {
+					id,
+					userId,
+					amount,
+					description,
+					date,
+					payment_method,
+					installment,
+				};
+			}),
+		};
+
+		const userData = {
+			id,
+			first_name,
+			last_name,
+			username,
+			email,
+			...mappedIncomes,
+			...mappedExpenses,
+		};
+
+		return userData;
 	});
 
 	return res.status(200).json(mappedUsers);
