@@ -39,4 +39,27 @@ async function getAllIncomes(req: Request, res: Response) {
 	return res.status(200).json(income);
 }
 
-export { createIncome, getAllIncomes };
+async function updateIncome(req: Request, res: Response) {
+	const bodySchema = z.object({
+		amount: z.number(),
+		description: z.string(),
+	});
+
+	const { amount, description } = bodySchema.parse(req.body);
+
+	const { id } = req.params;
+
+	const income = await client.income.update({
+		where: {
+			id,
+		},
+		data: {
+			amount,
+			description,
+		},
+	});
+
+	return res.status(200).json(income);
+}
+
+export { createIncome, getAllIncomes, updateIncome };
