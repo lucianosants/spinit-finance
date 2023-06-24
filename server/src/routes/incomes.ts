@@ -62,4 +62,16 @@ async function updateIncome(req: Request, res: Response) {
 	return res.status(200).json(income);
 }
 
-export { createIncome, getAllIncomes, updateIncome };
+async function deleteIncome(req: Request, res: Response) {
+	const { id } = req.params;
+
+	const income = await client.income.delete({
+		where: {
+			id,
+		},
+	});
+
+	return res.status(200).json(income);
+}
+
+export { createIncome, getAllIncomes, updateIncome, deleteIncome };
