@@ -1,20 +1,26 @@
 import { Router } from 'express';
 
-import { createUser, getAllUsers, updateUser } from './user';
+import {
+	createUser,
+	getAllUsers,
+	updateUser,
+} from '../controllers/user-controller';
+
 import {
 	getAllIncomes,
 	createIncome,
 	updateIncome,
 	deleteIncome,
 	getAnIncome,
-} from './incomes';
+} from '../controllers/incomes-controller';
+
 import {
 	createExpense,
 	deleteExpense,
 	getAllExpenses,
 	getAnExpense,
 	updateExpense,
-} from './expenses';
+} from '../controllers/expenses-controller';
 
 const router = Router();
 
