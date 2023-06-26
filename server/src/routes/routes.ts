@@ -12,12 +12,13 @@ import {
 	createExpense,
 	deleteExpense,
 	getAllExpenses,
+	getAnExpense,
 	updateExpense,
 } from './expenses';
 
 const router = Router();
 
-router.post('/user', createUser);
+router.post('/users', createUser);
 router.get('/users', getAllUsers);
 router.patch('/users/:id', updateUser);
 
@@ -31,5 +32,6 @@ router.get('/expenses', getAllExpenses);
 router.post('/expenses', createExpense);
 router.patch('/expenses/:id', updateExpense);
 router.delete('/expenses/:id', deleteExpense);
+router.get('/expenses/:id', getAnExpense);
 
 export { router };
