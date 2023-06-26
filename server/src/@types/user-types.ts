@@ -26,4 +26,5 @@ type UserProps = {
 	email: string;
 	incomes: IncomeProps[];
 	expenses: ExpenseProps[];
+	balance: number;
 };

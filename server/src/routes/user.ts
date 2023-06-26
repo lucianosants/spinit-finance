@@ -44,6 +44,7 @@ async function getAllUsers(req: Request, res: Response) {
 			email,
 			incomes,
 			expenses,
+			balance,
 		} = user;
 
 		const mappedIncomes = {
@@ -84,12 +85,26 @@ async function getAllUsers(req: Request, res: Response) {
 			}),
 		};
 
+		const currentBalance = () => {
+			const totalIncomes = incomes.reduce(
+				(acc, { amount }) => acc + amount,
+				0
+			);
+			const totalExpenses = expenses.reduce(
+				(acc, { amount }) => acc + amount,
+				0
+			);
+
+			return totalIncomes - totalExpenses;
+		};
+
 		const userData = {
 			id,
 			first_name,
 			last_name,
 			username,
 			email,
+			balance: currentBalance(),
 			...mappedIncomes,
 			...mappedExpenses,
 		};
