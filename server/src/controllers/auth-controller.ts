@@ -36,9 +36,11 @@ async function login(req: Request, res: Response) {
 			expiresIn: '7d',
 		});
 
-		const { id, username } = user;
+		const { id, username, first_name } = user;
 
-		return res.status(200).json({ user: { id, username, email }, token });
+		return res
+			.status(200)
+			.json({ user: { id, username, email, first_name }, token });
 	} catch (error) {
 		res.status(400).send(error);
 	}

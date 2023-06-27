@@ -117,10 +117,26 @@ async function getAnExpense(req: Request, res: Response) {
 	}
 }
 
+async function getAllExpensesByUserId(req: Request, res: Response) {
+	try {
+		const { userId } = req.params;
+		const income = await client.expense.findMany({
+			where: {
+				userId,
+			},
+		});
+
+		return res.status(200).json(income);
+	} catch (error) {
+		res.status(400).send(error);
+	}
+}
+
 export {
 	createExpense,
 	getAllExpenses,
 	updateExpense,
 	deleteExpense,
 	getAnExpense,
+	getAllExpensesByUserId,
 };

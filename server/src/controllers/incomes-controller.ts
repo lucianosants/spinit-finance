@@ -106,4 +106,27 @@ async function getAnIncome(req: Request, res: Response) {
 	}
 }
 
-export { createIncome, getAllIncomes, updateIncome, deleteIncome, getAnIncome };
+async function getAllIncomesByUserId(req: Request, res: Response) {
+	try {
+		const { userId } = req.params;
+
+		const income = await client.income.findMany({
+			where: {
+				userId,
+			},
+		});
+
+		return res.status(200).json(income);
+	} catch (error) {
+		res.status(400).send(error);
+	}
+}
+
+export {
+	createIncome,
+	getAllIncomes,
+	updateIncome,
+	deleteIncome,
+	getAnIncome,
+	getAllIncomesByUserId,
+};
