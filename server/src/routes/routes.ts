@@ -22,10 +22,14 @@ import {
 	updateExpense,
 } from '../controllers/expenses-controller';
 
+import { login } from '../controllers/auth-controller';
+
+import { authenticateMiddleware } from '../middlewares/auth';
+
 const router = Router();
 
 router.post('/users', createUser);
-router.get('/users', getAllUsers);
+router.get('/users', authenticateMiddleware, getAllUsers);
 router.patch('/users/:id', updateUser);
 
 router.get('/incomes', getAllIncomes);
@@ -39,5 +43,7 @@ router.post('/expenses', createExpense);
 router.patch('/expenses/:id', updateExpense);
 router.delete('/expenses/:id', deleteExpense);
 router.get('/expenses/:id', getAnExpense);
+
+router.post('/auth/login', login);
 
 export { router };
