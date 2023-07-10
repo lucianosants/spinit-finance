@@ -5,17 +5,32 @@ const header = {
 };
 
 const body = {
-    nav_links: [
-        { source: '#', label: 'Inicio' },
-        { source: '#', label: 'Sobre' },
-        { source: '#', label: 'Depoimentos' },
-        { source: '#', label: 'Contato' },
-    ],
+    title: 'Spinit Finance',
+    description: {
+        main: 'Gire suas finanças com facilidade e controle com Spinit.',
+        rest: [
+            'Spinit é uma plataforma de finanças pessoais projetada para ajudar você a girar o seu dinheiro com facilidade e controle.',
 
-    auth_links: [
-        { source: '/auth/login', label: 'Entrar' },
-        { source: '/auth/register', label: 'Registre-se' },
-    ],
+            'Nossa abordagem inovadora oferece uma experiência simplificada de gerenciamento de carteira, permitindo que você adicione transações de maneira rápida e eficiente.',
+        ],
+    },
+    links: {
+        get_started: {
+            url: '/auth/signup',
+            label: 'Iniciar',
+        },
+        learn_more: {
+            url: '#',
+            label: 'Saiba Mais',
+        },
+    },
+    footer: {
+        copyright: 'created by',
+        author: {
+            url: 'https://lucianosants.dev',
+            label: 'lucianosants',
+        },
+    },
 };
 
 export { header, body };

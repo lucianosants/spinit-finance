@@ -2,7 +2,6 @@ import { montserrat, oswald } from '@/src/lib/fonts';
 import './globals.css';
 
 import { header } from '@/_data/screens/home/pt-br';
-import { Header } from '@/src/patterns/Header';
 
 export const metadata = {
     title: header.title,
@@ -17,7 +16,6 @@ export default function RootLayout({
     return (
         <html lang="pt-BR">
             <body className={`${oswald.variable} ${montserrat.variable}`}>
-                <Header />
                 {children}
             </body>
         </html>
