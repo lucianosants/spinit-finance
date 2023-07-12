@@ -1,5 +1,5 @@
 const body = {
-    title: 'Crie Sua Conta',
+    titles: ['Crie Sua Conta', 'Entre Com Sua Conta'],
     form: {
         first_name: {
             label: 'Nome',
@@ -14,7 +14,7 @@ const body = {
             placeholder: 'ex. seuemail@mail.com',
         },
         username: {
-            label: 'username',
+            label: 'Username',
             placeholder: 'ex. john_doe',
         },
         password: {
@@ -25,8 +25,9 @@ const body = {
             label: 'Confirmar Senha',
             placeholder: 'ex. sua@senha123',
         },
-        submit: 'Criar Conta',
+        submit: ['Criar Conta', 'Entrar'],
     },
+    links: ['Já tenho conta', 'Ainda não tem conta?'],
 };
 
 export { body };

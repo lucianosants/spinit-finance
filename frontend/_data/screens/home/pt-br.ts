@@ -16,7 +16,7 @@ const body = {
     },
     links: {
         get_started: {
-            url: '/auth/signup',
+            url: '/auth/login',
             label: 'Iniciar',
         },
         learn_more: {

@@ -1,25 +1,17 @@
 'use client';
 
 import { FormEvent, useState } from 'react';
+import Link from 'next/link';
 
 import { Form } from '@/src/components';
 import { Eye, EyeSlash } from '@/src/assets/icons';
 
 import { body } from '@/_data/screens/auth/pt-br';
-import Link from 'next/link';
 
-export function SignupScreen() {
+export function LoginScreen() {
     const [hiddenPassword, setHiddenPassword] = useState(false);
 
-    const {
-        first_name,
-        last_name,
-        email,
-        username,
-        password,
-        confirm_password,
-        submit,
-    } = body.form;
+    const { email, password, submit } = body.form;
 
     const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
@@ -31,7 +23,7 @@ export function SignupScreen() {
         <div>
             <div className="">
                 <p className="text-xl font-bold tracking-widest font-alt">
-                    {body.titles[0]}
+                    {body.titles[1]}
                 </p>
             </div>
 
@@ -40,29 +32,8 @@ export function SignupScreen() {
                 autoComplete="off"
                 onSubmit={handleSubmit}
             >
-                <Form.Field label={first_name.label}>
-                    <Form.Input
-                        placeholder={first_name.placeholder}
-                        type="text"
-                    />
-                </Form.Field>
-
-                <Form.Field label={last_name.label}>
-                    <Form.Input
-                        placeholder={last_name.placeholder}
-                        type="text"
-                    />
-                </Form.Field>
-
                 <Form.Field label={email.label}>
                     <Form.Input placeholder={email.placeholder} type="email" />
-                </Form.Field>
-
-                <Form.Field label={username.label}>
-                    <Form.Input
-                        placeholder={username.placeholder}
-                        type="text"
-                    />
                 </Form.Field>
 
                 <Form.Field label={password.label}>
@@ -84,28 +55,20 @@ export function SignupScreen() {
                     </button>
                 </Form.Field>
 
-                <Form.Field label={confirm_password.label}>
-                    <Form.Input
-                        placeholder={confirm_password.placeholder}
-                        type={hiddenPassword ? 'text' : 'password'}
-                        style={{ paddingRight: '2.5rem' }}
-                    />
-                </Form.Field>
-
                 <button
                     type="submit"
                     className="w-full p-4 text-lg font-semibold rounded-lg hover:bg-neutral-200 bg-neutral-100 text-neutral-900"
                 >
-                    {submit[0]}
+                    {submit[1]}
                 </button>
             </form>
 
             <div className="mt-6">
                 <Link
-                    href="/auth/login"
+                    href="/auth/signup"
                     className="text-sm font-semibold text-violet-300 hover:text-violet-400"
                 >
-                    {body.links[0]}
+                    {body.links[1]}
                 </Link>
             </div>
         </div>

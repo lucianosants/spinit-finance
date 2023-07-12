@@ -14,7 +14,7 @@ export default function RootLayout({ children }: RootLayout) {
     return (
         <main className="min-h-screen font-sans">
             <Container>
-                <div className="flex items-center justify-center w-full">
+                <div className="flex items-center justify-center w-full h-full">
                     <section className="hidden md:block h-[35rem] bg-violet-500 w-full">
                         <Image
                             src="/cover-img.avif"
@@ -25,8 +25,8 @@ export default function RootLayout({ children }: RootLayout) {
                         />
                     </section>
 
-                    <section className="flex flex-col w-full h-screen md:h-[35rem] max-w-lg px-6 overflow-y-auto rounded-lg py-7 bg-neutral-800">
-                        <div>
+                    <section className="flex flex-col w-full h-screen md:h-[35rem] max-w-lg px-6 overflow-y-auto rounded-lg md:pt-7 pt-10 pb-36 md:pb-7 bg-neutral-800">
+                        <div className="">
                             <Link
                                 href="/"
                                 className="flex items-center justify-start gap-4 mb-8 text-3xl font-bold font-alt"
@@ -39,7 +39,7 @@ export default function RootLayout({ children }: RootLayout) {
                         </div>
                         {children}
 
-                        <div className="mt-6">
+                        <div className="pb-6 mt-10">
                             <p>
                                 {`${body.footer.copyright} `}
                                 <a

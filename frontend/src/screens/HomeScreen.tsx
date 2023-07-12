@@ -5,7 +5,7 @@ import { body } from '@/_data/screens/home/pt-br';
 
 export function HomeScreen() {
     return (
-        <div className="flex flex-col items-center justify-between max-w-4xl min-h-full gap-8 p-6 mx-auto text-start sm:text-center text-neutral-900">
+        <div className="flex flex-col items-center justify-between h-full max-w-4xl gap-8 p-6 mx-auto text-start sm:text-center text-neutral-900">
             <section className="flex flex-col gap-10 space-y-2">
                 <h1 className="text-lg font-bold">{body.title}</h1>
 
