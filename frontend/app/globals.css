@@ -16,7 +16,7 @@
 }
 
 ::-webkit-scrollbar-track {
-  @apply bg-neutral-600
+  @apply bg-transparent
 }
 
 
