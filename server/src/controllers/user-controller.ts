@@ -16,6 +16,26 @@ async function createUser(req: Request, res: Response) {
 
 		const userData = bodySchema.parse(req.body);
 
+		const existingUser = await client.user.findUnique({
+			where: {
+				username: userData.username,
+			},
+		});
+
+		if (existingUser) {
+			return res.status(400).json({ error: 'Username já existe.' });
+		}
+
+		const existingEmail = await client.user.findUnique({
+			where: {
+				email: userData.email,
+			},
+		});
+
+		if (existingEmail) {
+			return res.status(400).json({ error: 'Email já existe.' });
+		}
+
 		const hashedPassword = await hash(userData.password, 8);
 
 		const user = await client.user.create({
