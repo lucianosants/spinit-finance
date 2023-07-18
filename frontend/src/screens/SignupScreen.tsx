@@ -14,8 +14,9 @@ import { Eye, EyeSlash } from '@/src/assets/icons';
 import { body } from '@/_data/screens/auth/pt-br';
 
 import { signupSchema } from '../lib/zod/schemas/auth';
+import { auth, ErrorType } from '../utils/auth';
 
-type SignupProps = z.infer<typeof signupSchema>;
+export type SignupProps = z.infer<typeof signupSchema>;
 
 export function SignupScreen() {
     const [hiddenPassword, setHiddenPassword] = useState(false);
@@ -50,32 +51,21 @@ export function SignupScreen() {
     const { errors, dirtyFields, isSubmitting } = formState;
 
     const handleSignup = async (data: SignupProps) => {
-        console.log('data', data);
+        setErrorMessage('');
 
         try {
-            const url = 'http://localhost:3333';
-            const response = await fetch(`${url}/users`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(data),
-            });
+            const response = await auth().signup(data);
 
-            if (response.status > 300) {
-                const { error } = await response.json();
-
-                setErrorMessage(error);
-
-                return;
-            }
-
-            router.replace('/auth/login');
+            router.push('/auth/login');
 
             return response;
-            // eslint-disable-next-line
+            //eslint-disable-next-line
         } catch (error: any) {
-            throw new Error(error.message);
+            const { response } = error as ErrorType;
+
+            setErrorMessage(response.data.error);
+
+            return;
         }
     };
 

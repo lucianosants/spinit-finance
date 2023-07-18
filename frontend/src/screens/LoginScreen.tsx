@@ -35,11 +35,11 @@ export function LoginScreen() {
     const { email, password, submit } = body.form;
 
     const handleLogin = async (data: LoginProps) => {
-        const response = await auth().login(data);
-
-        if (!response?.data) {
+        try {
+            const response = await auth().login(data);
+            return response;
+        } catch (error) {
             setErrorMessage('E-mail não encontrado ou senha inválida.');
-            return;
         }
     };
 
@@ -102,7 +102,7 @@ export function LoginScreen() {
                             <Spin /> Entrando...
                         </>
                     ) : (
-                        submit[0]
+                        submit[1]
                     )}
                 </button>
             </form>
