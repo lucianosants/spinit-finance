@@ -10,9 +10,7 @@ export const signupSchema = z
             .email('O e-mail fornecido é inválido.'),
         username: z.string().min(1, 'Este campo não pode ficar em branco.'),
         password: z
-            .string({
-                description: 'As senhas precisam ser iguas',
-            })
+            .string()
             .min(8, 'Sua senha deve ter no mínimo 8 caracteres.')
             .max(18, 'Sua senha deve ter no máximo 18 caracteres.')
             .refine(
@@ -30,3 +28,11 @@ export const signupSchema = z
         path: ['confirmPassword'],
         message: 'As senhas precisam ser iguais.',
     });
+
+export const loginSchema = z.object({
+    email: z
+        .string()
+        .min(1, 'Este campo não pode ficar em branco.')
+        .email('O e-mail fornecido é inválido.'),
+    password: z.string().min(1, 'Este campo não pode ficar em branco.'),
+});
