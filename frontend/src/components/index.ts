@@ -1,5 +1,5 @@
 import { Container } from './Container';
 import * as Form from './Input';
-import { Spin } from './Loaders/Spin';
+import * as Button from './Button';
 
-export { Container, Form, Spin };
+export { Container, Form, Button };

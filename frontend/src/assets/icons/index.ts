@@ -1,5 +1,11 @@
 'use client';
 
-import { Lightbulb, ArrowRight, Eye, EyeSlash } from '@phosphor-icons/react';
+import {
+    Lightbulb,
+    ArrowRight,
+    Eye,
+    EyeSlash,
+    SpinnerGap,
+} from '@phosphor-icons/react';
 
-export { Lightbulb, ArrowRight, Eye, EyeSlash };
+export { Lightbulb, ArrowRight, Eye, EyeSlash, SpinnerGap };

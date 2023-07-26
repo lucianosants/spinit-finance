@@ -1,15 +1,14 @@
 'use client';
 
 import { useState } from 'react';
-import Link from 'next/link';
 import { useForm } from 'react-hook-form';
 import z from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useRouter } from 'next/navigation';
 
 import { Form } from '@/src/components';
-import { Spin } from '@/src/components';
-import { Eye, EyeSlash } from '@/src/assets/icons';
+import { Eye, EyeSlash, SpinnerGap } from '@/src/assets/icons';
+import { Button } from '@/src/components';
 
 import { body } from '@/_data/screens/auth/pt-br';
 
@@ -63,7 +62,9 @@ export function SignupScreen() {
         } catch (error: any) {
             const { response } = error as ErrorType;
 
-            setErrorMessage(response.data.error);
+            setErrorMessage(
+                response?.data.error || 'Houve um erro nao criar conta.',
+            );
 
             return;
         }
@@ -141,17 +142,18 @@ export function SignupScreen() {
                         type={hiddenPassword ? 'text' : 'password'}
                         style={{ paddingRight: '2.5rem' }}
                     />
-                    <button
+                    <Button.Action
                         type="button"
+                        variant="transparent"
                         onClick={() => setHiddenPassword(!hiddenPassword)}
-                        className="absolute right-0 pr-4 mt-1 top-12"
+                        className="absolute pr-4 mt-0 right-3 top-10"
                     >
                         {hiddenPassword ? (
                             <Eye size={20} />
                         ) : (
                             <EyeSlash size={20} />
                         )}
-                    </button>
+                    </Button.Action>
                 </Form.Field>
 
                 <Form.Field
@@ -166,19 +168,24 @@ export function SignupScreen() {
                     />
                 </Form.Field>
 
-                <button
+                <Button.Action
                     type="submit"
+                    width="full"
+                    variant="white"
+                    className="py-4 disabled:bg-white/80 text-md"
                     disabled={isSubmitting}
-                    className="w-full p-4 text-lg font-semibold rounded-lg disabled:cursor-wait disabled:bg-neutral-300 hover:bg-neutral-200 bg-neutral-100 text-neutral-900"
+                    icon={
+                        isSubmitting && (
+                            <SpinnerGap
+                                className="animate-spin"
+                                size={20}
+                                weight="bold"
+                            />
+                        )
+                    }
                 >
-                    {isSubmitting ? (
-                        <>
-                            <Spin /> Criando...
-                        </>
-                    ) : (
-                        submit[0]
-                    )}
-                </button>
+                    {isSubmitting ? 'Criando...' : submit[0]}
+                </Button.Action>
             </form>
 
             {errorMessage && (
@@ -191,12 +198,9 @@ export function SignupScreen() {
             )}
 
             <div className="mt-6">
-                <Link
-                    href="/auth/login"
-                    className="text-sm font-semibold text-violet-300 hover:text-violet-400"
-                >
+                <Button.Navigate href="/auth/login">
                     {body.links[0]}
-                </Link>
+                </Button.Navigate>
             </div>
         </div>
     );

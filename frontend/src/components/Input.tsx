@@ -1,4 +1,4 @@
-import { FieldProps, InputProps } from '../@types/components';
+import { FieldProps, InputProps } from '../@types/forms';
 
 export function Field({ children, label, error, isValid }: FieldProps) {
     return (

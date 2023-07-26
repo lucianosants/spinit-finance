@@ -1,4 +1,7 @@
 /** @type {import('tailwindcss').Config} */
+
+// const {  } = require('./src/theme/default');
+
 module.exports = {
     content: [
         './pages/**/*.{js,ts,jsx,tsx,mdx}',
@@ -13,6 +16,7 @@ module.exports = {
                 sans: 'var(--font-montserrat)',
                 alt: 'var(--font-oswald)',
             },
+            colors: require('./src/theme/default'),
         },
     },
     plugins: [require('@tailwindcss/forms')],
