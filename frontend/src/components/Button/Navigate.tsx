@@ -26,7 +26,7 @@ export function Navigate({
                 widthLink,
             )}
         >
-            {icon} <span>{children}</span>
+            {icon} {children}
         </Link>
     );
 }

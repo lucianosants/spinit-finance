@@ -12,7 +12,7 @@ type RootLayout = {
 
 export default function RootLayout({ children }: RootLayout) {
     return (
-        <main className="min-h-screen font-sans">
+        <div className="min-h-screen font-sans">
             <Container>
                 <div className="flex items-center justify-center w-full h-full">
                     <section className="hidden md:block h-[35rem] bg-violet-500 w-full">
@@ -55,6 +55,6 @@ export default function RootLayout({ children }: RootLayout) {
                     </section>
                 </div>
             </Container>
-        </main>
+        </div>
     );
 }

@@ -24,7 +24,7 @@ export function Action({
                 widthButton,
             )}
         >
-            {icon} <span>{children}</span>
+            {icon} {children}
         </button>
     );
 }
