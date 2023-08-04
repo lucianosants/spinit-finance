@@ -6,11 +6,11 @@ import { body } from '@/_data/screens/home/pt-br';
 import { Container } from '@/src/components';
 import { Logo } from '@/src/assets/Logo';
 
-type RootLayout = {
+type AuthLayoutProps = {
     children: React.ReactNode;
 };
 
-export default function RootLayout({ children }: RootLayout) {
+export default function AuthLayout({ children }: AuthLayoutProps) {
     return (
         <div className="min-h-screen font-sans">
             <Container>
@@ -25,7 +25,7 @@ export default function RootLayout({ children }: RootLayout) {
                         />
                     </section>
 
-                    <section className="flex flex-col w-full h-screen md:h-[35rem] max-w-lg px-6 overflow-y-auto rounded-lg md:pt-7 pt-10 pb-36 md:pb-7 bg-neutral-800">
+                    <section className="flex flex-col w-full h-screen md:h-[35rem] max-w-lg px-6 overflow-y-auto rounded-lg md:pt-7 pt-10 pb-36 md:pb-7 bg-gray-800">
                         <div className="">
                             <Link
                                 href="/"

@@ -13,6 +13,7 @@ import {
     User,
     CaretDown,
     List,
+    Crown,
 } from '@phosphor-icons/react';
 
 export {
@@ -28,4 +29,5 @@ export {
     User,
     CaretDown,
     List,
+    Crown,
 };

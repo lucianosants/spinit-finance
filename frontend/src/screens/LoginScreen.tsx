@@ -53,11 +53,7 @@ export function LoginScreen() {
                 </p>
             </div>
 
-            <form
-                className="flex flex-col items-start w-full gap-5 mt-6"
-                autoComplete="off"
-                onSubmit={handleSubmit(handleLogin)}
-            >
+            <Form.Root onSubmit={handleSubmit(handleLogin)}>
                 <Form.Field
                     label={email.label}
                     isValid={dirtyFields.email}
@@ -111,9 +107,9 @@ export function LoginScreen() {
                         )
                     }
                 >
-                    {isSubmitting ? 'Entrando...' : submit[0]}
+                    {isSubmitting ? 'Entrando...' : submit[1]}
                 </Button.Action>
-            </form>
+            </Form.Root>
 
             {errorMessage && (
                 <div

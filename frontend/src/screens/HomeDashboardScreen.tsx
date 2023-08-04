@@ -7,7 +7,7 @@ export function HomeDashboardScreen({ cards }: HomeDashboardProps) {
     return (
         <>
             <section className="w-full mt-4">
-                <h3 className="mb-4 text-2xl font-bold text-start">
+                <h3 className="mb-4 text-2xl font-bold text-gray-200 text-start">
                     Dashboard
                 </h3>
                 <div className="flex flex-col gap-4 sm:flex-row">

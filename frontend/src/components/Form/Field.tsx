@@ -1,4 +1,4 @@
-import { FieldProps, InputProps } from '../@types/forms';
+import { FieldProps } from '@/src/@types/forms';
 
 export function Field({ children, label, error, isValid }: FieldProps) {
     return (
@@ -22,15 +22,5 @@ export function Field({ children, label, error, isValid }: FieldProps) {
                 </span>
             )}
         </label>
-    );
-}
-
-export function Input({ register, ...props }: InputProps) {
-    return (
-        <input
-            {...register}
-            {...props}
-            className={`w-full group-data-[valid="true"]:border-emerald-300 p-4 bg-transparent rounded-lg appearance-none form-input group-data-[error="true"]:border-red-400`}
-        />
     );
 }

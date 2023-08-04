@@ -34,4 +34,10 @@ const widths = {
     fit: 'w-fit',
 };
 
-export { colors, widths };
+const positions = {
+    start: 'justify-start',
+    center: 'justify-center',
+    end: 'justify-end',
+};
+
+export { colors, widths, positions };

@@ -1,10 +1,10 @@
 'use client';
 
 import { useState } from 'react';
-import { useForm } from 'react-hook-form';
-import z from 'zod';
-import { zodResolver } from '@hookform/resolvers/zod';
 import { useRouter } from 'next/navigation';
+import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import z from 'zod';
 
 import { Form } from '@/src/components';
 import { Eye, EyeSlash, SpinnerGap } from '@/src/assets/icons';
@@ -78,11 +78,7 @@ export function SignupScreen() {
                 </p>
             </div>
 
-            <form
-                className="flex flex-col items-start w-full gap-5 mt-6"
-                autoComplete="off"
-                onSubmit={handleSubmit(handleSignup)}
-            >
+            <Form.Root onSubmit={handleSubmit(handleSignup)}>
                 <Form.Field
                     label={first_name.label}
                     error={errors.first_name?.message}
@@ -186,7 +182,7 @@ export function SignupScreen() {
                 >
                     {isSubmitting ? 'Criando...' : submit[0]}
                 </Button.Action>
-            </form>
+            </Form.Root>
 
             {errorMessage && (
                 <div

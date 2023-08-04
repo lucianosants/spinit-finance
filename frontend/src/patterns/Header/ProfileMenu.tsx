@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { Button, Dropdown } from '../../components';
+import { Button, Dropdown } from '@/src/components';
 
 import { User, CaretDown } from '@/src/assets/icons';
 
@@ -28,7 +28,13 @@ export function ProfileMenu({ customer }: Props) {
                 </div>
             </Dropdown.Trigger>
 
-            <Dropdown.Menu isOpen={isOpen}>
+            <Dropdown.Menu position="right" isOpen={isOpen}>
+                <Dropdown.Item>
+                    <span className="inline px-4 py-1 text-lg font-bold text-gray-300 border-b sm:hidden border-default">
+                        {customer}
+                    </span>
+                </Dropdown.Item>
+
                 {links.map((link, index) => (
                     <Dropdown.Item key={index}>
                         <Button.Navigate

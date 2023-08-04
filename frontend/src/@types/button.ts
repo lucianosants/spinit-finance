@@ -22,6 +22,7 @@ type RootProps = {
     variant?: VariantsProps;
     icon?: ReactNode;
     width?: 'full' | 'fit';
+    position?: 'start' | 'center' | 'end';
 };
 
 type LinkBaseProps = {

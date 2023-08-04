@@ -2,7 +2,7 @@
 
 import { usePathname } from 'next/navigation';
 
-import { Button } from '../components';
+import { Button } from '@/src/components';
 
 import { SquaresFour, TrendDown, TrendUp } from '@/src/assets/icons';
 
@@ -34,10 +34,11 @@ export function Navbar() {
                     <li key={index}>
                         <Button.Navigate
                             width="full"
-                            className="group sm:justify-start md:flex-row data-[current='true']:bg-info-200 data-[current='true']:text-info-100"
                             variant="transparent"
                             href={option.url}
+                            position="start"
                             icon={option.icon}
+                            className="group data-[current='true']:bg-primary-200 data-[current='true']:text-primary-100"
                             data-current={router === option.url}
                         >
                             <span className="sr-only">{option.label}</span>

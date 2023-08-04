@@ -3,12 +3,15 @@
 import { useState } from 'react';
 
 import { Button, Dropdown } from '@/src/components';
-import { List } from '@/src/assets/icons';
+import { List, Question, Crown } from '@/src/assets/icons';
 
 export function HeaderMenu() {
     const [isOpen, setIsOpen] = useState(false);
 
-    const links = ['Premium', 'Ajuda'];
+    const links = [
+        { title: 'Premium', icon: <Crown size={20} weight="bold" /> },
+        { title: 'Ajuda', icon: <Question size={20} weight="bold" /> },
+    ];
 
     return (
         <>
@@ -27,8 +30,10 @@ export function HeaderMenu() {
                                 variant="transparent"
                                 href="#"
                                 onClick={() => setIsOpen(false)}
+                                icon={link.icon}
+                                position="start"
                             >
-                                {link}
+                                {link.title}
                             </Button.Navigate>
                         </Dropdown.Item>
                     ))}
