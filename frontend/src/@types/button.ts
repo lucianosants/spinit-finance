@@ -2,7 +2,7 @@ import { ButtonHTMLAttributes, ReactNode } from 'react';
 
 import { LinkProps as NextLinkProps } from 'next/link';
 
-type VariantsProps =
+export type VariantsProps =
     | 'success'
     | 'danger'
     | 'warning'
