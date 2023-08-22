@@ -12,7 +12,7 @@ export default function HomeLayout({ children }: HomeLayoutProps) {
             <div className="flex-[75%] overflow-y-auto">
                 <Header />
                 <Container>
-                    <div className="px-6 py-4">{children}</div>
+                    <div className="w-full px-6 py-4">{children}</div>
                 </Container>
             </div>
             <FooterBar />
