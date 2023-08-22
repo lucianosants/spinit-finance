@@ -8,6 +8,7 @@ async function createIncome(req: Request, res: Response) {
 		const bodySchema = z.object({
 			amount: z.number(),
 			description: z.string(),
+			date: z.string(),
 			user: z.object({
 				id: z.string(),
 			}),
@@ -16,6 +17,7 @@ async function createIncome(req: Request, res: Response) {
 		const {
 			amount,
 			description,
+			date,
 			user: { id },
 		} = bodySchema.parse(req.body);
 
@@ -23,6 +25,7 @@ async function createIncome(req: Request, res: Response) {
 			data: {
 				amount,
 				description,
+				date,
 				user: {
 					connect: {
 						id,
@@ -39,7 +42,11 @@ async function createIncome(req: Request, res: Response) {
 
 async function getAllIncomes(req: Request, res: Response) {
 	try {
-		const income = await client.income.findMany();
+		const income = await client.income.findMany({
+			orderBy: {
+				date: 'desc',
+			},
+		});
 
 		return res.status(200).json(income);
 	} catch (error) {
@@ -52,9 +59,10 @@ async function updateIncome(req: Request, res: Response) {
 		const bodySchema = z.object({
 			amount: z.number(),
 			description: z.string(),
+			date: z.string(),
 		});
 
-		const { amount, description } = bodySchema.parse(req.body);
+		const { amount, description, date } = bodySchema.parse(req.body);
 
 		const { id } = req.params;
 
@@ -65,6 +73,7 @@ async function updateIncome(req: Request, res: Response) {
 			data: {
 				amount,
 				description,
+				date,
 			},
 		});
 
@@ -113,6 +122,9 @@ async function getAllIncomesByUserId(req: Request, res: Response) {
 		const income = await client.income.findMany({
 			where: {
 				userId,
+			},
+			orderBy: {
+				date: 'desc',
 			},
 		});
 

@@ -53,91 +53,9 @@ async function createUser(req: Request, res: Response) {
 
 async function getAllUsers(req: Request, res: Response) {
 	try {
-		const users = await client.user.findMany({
-			include: {
-				incomes: true,
-				expenses: true,
-			},
-		});
+		const users = await client.user.findMany();
 
-		const mappedUsers: UserProps[] = users.map((user) => {
-			const {
-				id,
-				first_name,
-				last_name,
-				username,
-				email,
-				incomes,
-				expenses,
-				balance,
-			} = user;
-
-			const mappedIncomes = {
-				incomes: incomes.map((income) => {
-					const { id, userId, amount, description, date } = income;
-
-					return {
-						id,
-						userId,
-						amount,
-						description,
-						date,
-					};
-				}),
-			};
-
-			const mappedExpenses = {
-				expenses: expenses.map((expense) => {
-					const {
-						id,
-						userId,
-						amount,
-						description,
-						date,
-						payment_method,
-						installment,
-					} = expense;
-
-					return {
-						id,
-						userId,
-						amount,
-						description,
-						date,
-						payment_method,
-						installment,
-					};
-				}),
-			};
-
-			const currentBalance = () => {
-				const totalIncomes = incomes.reduce(
-					(acc, { amount }) => acc + amount,
-					0
-				);
-				const totalExpenses = expenses.reduce(
-					(acc, { amount }) => acc + amount,
-					0
-				);
-
-				return totalIncomes - totalExpenses;
-			};
-
-			const userData = {
-				id,
-				first_name,
-				last_name,
-				username,
-				email,
-				balance: currentBalance(),
-				...mappedIncomes,
-				...mappedExpenses,
-			};
-
-			return userData;
-		});
-
-		return res.status(200).json(mappedUsers);
+		return res.status(200).json(users);
 	} catch (error) {
 		res.status(400).send(error);
 	}

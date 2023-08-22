@@ -10,6 +10,7 @@ async function createExpense(req: Request, res: Response) {
 			description: z.string(),
 			payment_method: z.enum(['CASH', 'CREDIT_CARD']),
 			installment: z.number(),
+			date: z.string(),
 			user: z.object({
 				id: z.string(),
 			}),
@@ -20,15 +21,17 @@ async function createExpense(req: Request, res: Response) {
 			description,
 			payment_method,
 			installment,
+			date,
 			user: { id },
 		} = bodySchema.parse(req.body);
 
-		const income = await client.expense.create({
+		const expense = await client.expense.create({
 			data: {
 				amount,
 				description,
 				payment_method,
 				installment,
+				date,
 				user: {
 					connect: {
 						id,
@@ -37,7 +40,7 @@ async function createExpense(req: Request, res: Response) {
 			},
 		});
 
-		return res.status(200).json(income);
+		return res.status(200).json(expense);
 	} catch (error) {
 		res.status(400).send(error);
 	}
@@ -45,9 +48,13 @@ async function createExpense(req: Request, res: Response) {
 
 async function getAllExpenses(req: Request, res: Response) {
 	try {
-		const income = await client.expense.findMany();
+		const expenses = await client.expense.findMany({
+			orderBy: {
+				date: 'desc',
+			},
+		});
 
-		return res.status(200).json(income);
+		return res.status(200).json(expenses);
 	} catch (error) {
 		res.status(400).send(error);
 	}
@@ -60,26 +67,28 @@ async function updateExpense(req: Request, res: Response) {
 			description: z.string(),
 			payment_method: z.enum(['CASH', 'CREDIT_CARD']),
 			installment: z.number(),
+			date: z.string(),
 		});
 
 		const { id } = req.params;
 
-		const { amount, description, payment_method, installment } =
+		const { amount, description, payment_method, installment, date } =
 			bodySchema.parse(req.body);
 
-		const income = await client.expense.update({
+		const expense = await client.expense.update({
 			data: {
 				amount,
 				description,
 				payment_method,
 				installment,
+				date,
 			},
 			where: {
 				id,
 			},
 		});
 
-		return res.status(200).json(income);
+		return res.status(200).json(expense);
 	} catch (error) {
 		res.status(400).send(error);
 	}
@@ -89,13 +98,13 @@ async function deleteExpense(req: Request, res: Response) {
 	try {
 		const { id } = req.params;
 
-		const income = await client.expense.delete({
+		const expense = await client.expense.delete({
 			where: {
 				id,
 			},
 		});
 
-		return res.status(200).json(income);
+		return res.status(200).json(expense);
 	} catch (error) {
 		res.status(400).send(error);
 	}
@@ -105,13 +114,13 @@ async function getAnExpense(req: Request, res: Response) {
 	try {
 		const { id } = req.params;
 
-		const income = await client.expense.findUnique({
+		const expense = await client.expense.findUnique({
 			where: {
 				id,
 			},
 		});
 
-		return res.status(200).json(income);
+		return res.status(200).json(expense);
 	} catch (error) {
 		res.status(400).send(error);
 	}
@@ -120,13 +129,16 @@ async function getAnExpense(req: Request, res: Response) {
 async function getAllExpensesByUserId(req: Request, res: Response) {
 	try {
 		const { userId } = req.params;
-		const income = await client.expense.findMany({
+		const expenses = await client.expense.findMany({
 			where: {
 				userId,
 			},
+			orderBy: {
+				date: 'desc',
+			},
 		});
 
-		return res.status(200).json(income);
+		return res.status(200).json(expenses);
 	} catch (error) {
 		res.status(400).send(error);
 	}
