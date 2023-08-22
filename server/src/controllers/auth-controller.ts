@@ -32,13 +32,15 @@ async function login(req: Request, res: Response) {
 
 		const secretKey = process.env.SECRET_HASH_TOKEN as string;
 
-		const token = sign({ id: user!.id, username: user.username  }, secretKey, {
-			expiresIn: '7d',
-		});
+		const token = sign(
+			{ id: user!.id, username: user.username, name: user.first_name },
+			secretKey,
+			{
+				expiresIn: '7d',
+			}
+		);
 
-		return res
-			.status(200)
-			.json({ token });
+		return res.status(200).json({ token });
 	} catch (error) {
 		res.status(400).send(error);
 	}
