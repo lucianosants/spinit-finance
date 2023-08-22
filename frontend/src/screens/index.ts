@@ -3,6 +3,7 @@ import { SignupScreen } from './SignupScreen';
 import { LoginScreen } from './LoginScreen';
 import { HomeDashboardScreen } from './HomeDashboardScreen';
 import { IncomesScreen } from './IncomesScreen';
+import { ExpensesScreen } from './ExpensesScreen';
 
 export {
     HomeScreen,
@@ -10,4 +11,5 @@ export {
     LoginScreen,
     HomeDashboardScreen,
     IncomesScreen,
+    ExpensesScreen,
 };

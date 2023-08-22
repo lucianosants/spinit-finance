@@ -35,6 +35,8 @@ export function HomeDashboardScreen({ cards }: HomeDashboardProps) {
             amount: 6248,
             date: '08/03/2023',
             type: 'expense',
+            payment_method: 'CASH',
+            installment: 0,
         },
         {
             id: 'kkfkfk',
@@ -42,6 +44,8 @@ export function HomeDashboardScreen({ cards }: HomeDashboardProps) {
             amount: 59.99,
             date: '07/03/2023',
             type: 'expense',
+            payment_method: 'CREDIT_CARD',
+            installment: 2,
         },
         {
             id: 'akhygyegfeug',
@@ -49,6 +53,8 @@ export function HomeDashboardScreen({ cards }: HomeDashboardProps) {
             amount: 1248,
             date: '10/03/2023',
             type: 'expense',
+            payment_method: 'CASH',
+            installment: 0,
         },
     ];
 
@@ -94,14 +100,25 @@ export function HomeDashboardScreen({ cards }: HomeDashboardProps) {
                 <div className="flex flex-col gap-4 p-4 mt-4 border border-gray-800 rounded-lg">
                     {transactions.map((transaction) => {
                         return (
-                            <TransactionCard
-                                key={transaction.id}
-                                // eslint-disable-next-line
-                                type={transaction.type as any}
-                                description={transaction.description}
-                                date={transaction.date}
-                                amount={transaction.amount}
-                            />
+                            <TransactionCard.Root key={transaction.id}>
+                                <TransactionCard.Header>
+                                    <TransactionCard.Description>
+                                        {transaction.description}
+                                    </TransactionCard.Description>
+
+                                    <TransactionCard.Date>
+                                        {transaction.date}
+                                    </TransactionCard.Date>
+                                </TransactionCard.Header>
+
+                                <TransactionCard.Footer>
+                                    <TransactionCard.Amount
+                                        amount={transaction.amount}
+                                        // eslint-disable-next-line
+                                        type={transaction.type as any}
+                                    />
+                                </TransactionCard.Footer>
+                            </TransactionCard.Root>
                         );
                     })}
                 </div>

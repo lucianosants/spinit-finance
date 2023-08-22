@@ -1,33 +1,39 @@
-import { TrendUp } from '@/src/assets/icons';
+import { TrendDown } from '@/src/assets/icons';
 import { Card, TransactionCard } from '../components';
 import { currencyFormatter } from '../utils/currency-formatter';
 
-export function IncomesScreen() {
-    const incomes = [
+export function ExpensesScreen() {
+    const expenses = [
         {
-            id: 'joihhauh',
-            description: 'Transferência recebida de Luciano',
-            amount: 10_100,
-            date: '06/03/2023',
-            type: 'income',
-        },
-        {
-            id: 'joisjjfjfauh',
-            description: 'Transferência recebida de Tokihara',
-            amount: 1_250,
-            date: '07/03/2023',
-            type: 'income',
-        },
-        {
-            id: 'ladkalakdkak',
-            description: 'Transferência recebida de Kowther',
-            amount: 3_250,
+            id: 'akoajkodkao',
+            description: 'iPhone 14 Pro Max',
+            amount: 6248,
             date: '08/03/2023',
-            type: 'income',
+            type: 'expense',
+            payment_method: 'CASH',
+            installment: 0,
+        },
+        {
+            id: 'kkfkfk',
+            description: 'Pizza',
+            amount: 59.99,
+            date: '07/03/2023',
+            type: 'expense',
+            payment_method: 'CREDIT_CARD',
+            installment: 2,
+        },
+        {
+            id: 'akhygyegfeug',
+            description: 'Parcela do Carro',
+            amount: 1248,
+            date: '10/03/2023',
+            type: 'expense',
+            payment_method: 'CASH',
+            installment: 0,
         },
     ];
 
-    const transactions = [...incomes];
+    const transactions = [...expenses];
 
     const totalAmount = transactions
         .map((transaction) => transaction.amount)
@@ -37,7 +43,7 @@ export function IncomesScreen() {
         <>
             <section className="w-full mt-4">
                 <h3 className="mb-4 text-2xl font-bold text-gray-200 text-start">
-                    Dashboard - Entradas
+                    Dashboard - Saídas
                 </h3>
 
                 <div className="flex flex-col gap-4 sm:flex-row">
@@ -49,15 +55,15 @@ export function IncomesScreen() {
                     </div>
 
                     <div className="flex-[40%] flex flex-col gap-5">
-                        <Card.Root url={'incomes#'} variant={'success'}>
+                        <Card.Root url={'expenses#'} variant={'danger'}>
                             <Card.Header
                                 icon={
-                                    <TrendUp
+                                    <TrendDown
                                         size={34}
-                                        className="p-2 rounded-full bg-success-200"
+                                        className="p-2 rounded-full bg-danger-200"
                                     />
                                 }
-                                title={'Entradas'}
+                                title={'Saídas'}
                             />
                             <Card.Currency value={totalAmount} />
                         </Card.Root>
@@ -78,6 +84,11 @@ export function IncomesScreen() {
                                     <TransactionCard.Description>
                                         {transaction.description}
                                     </TransactionCard.Description>
+                                    <TransactionCard.PaymentMethod>
+                                        {transaction.payment_method === 'CASH'
+                                            ? 'À vista'
+                                            : 'Cartão de Crédito'}
+                                    </TransactionCard.PaymentMethod>
 
                                     <TransactionCard.Date>
                                         {transaction.date}
@@ -87,8 +98,14 @@ export function IncomesScreen() {
                                 <TransactionCard.Footer>
                                     <TransactionCard.Amount
                                         amount={transaction.amount}
-                                        type={'income'}
+                                        type={'expense'}
                                     />
+
+                                    {transaction.installment > 0 && (
+                                        <TransactionCard.Installment>
+                                            {transaction.installment}
+                                        </TransactionCard.Installment>
+                                    )}
                                 </TransactionCard.Footer>
                             </TransactionCard.Root>
                         );
