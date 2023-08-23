@@ -18,6 +18,7 @@ export async function POST(request: NextRequest) {
             headers: {
                 'Set-Cookie': `@auth=${token}; Path=/; max-age=${cookieExpires}`,
             },
+            status: 302,
         });
 
         //eslint-disable-next-line
