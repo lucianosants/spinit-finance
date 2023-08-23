@@ -17,7 +17,7 @@ export function Header() {
                 <HeaderMenu />
             </div>
 
-            <ProfileMenu customer="Luciano" />
+            <ProfileMenu />
         </header>
     );
 }

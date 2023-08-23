@@ -21,7 +21,7 @@ export function auth() {
     const login = async (data: LoginProps) => {
         const response = await axios.post('/api/auth/login', data);
 
-        location.replace('/');
+        location.replace('/home');
 
         return response;
     };
