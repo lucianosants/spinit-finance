@@ -1,6 +1,6 @@
-import decode from 'jwt-decode';
+import decode, { JwtPayload } from 'jwt-decode';
 
-type UserProps = {
+type User = JwtPayload & {
     id: string;
     username: string;
     name: string;
@@ -8,11 +8,10 @@ type UserProps = {
 
 export function getUser(token: string) {
     if (!token) {
-        console.log('Unauthenticated');
-        return;
+        throw new Error('Unauthenticated');
     }
 
-    const user: UserProps = decode(token);
+    const user = decode<User>(token);
 
     return user;
 }
