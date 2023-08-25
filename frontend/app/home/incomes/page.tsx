@@ -1,15 +1,6 @@
+import { TransactionProps } from '@/src/@types/transactions';
 import { IncomesScreen } from '@/src/screens';
 import { getTDecimal } from '@/src/utils/get-decimal';
-
-type TransactionProps = {
-    id: string;
-    description: string;
-    amount: number;
-    date: string;
-    type: 'income' | 'expense';
-    payment_method?: 'CASH' | 'CREDIT_CARD';
-    installment?: number;
-};
 
 export default function Incomes() {
     const transactions: TransactionProps[] = [

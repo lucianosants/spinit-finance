@@ -2,25 +2,18 @@ import BigDecimal from 'js-big-decimal';
 
 import { TrendUp } from '@/src/assets/icons';
 import { Card, TransactionCard } from '../components';
+
+import { TransactionProps } from '../@types/transactions';
+
 import { currencyFormatter } from '../utils/currency-formatter';
 import { getTDecimal } from '../utils/get-decimal';
 
-type TransactionProps = {
-    id: string;
-    description: string;
-    amount: number;
-    date: string;
-    type: 'income' | 'expense';
-    payment_method?: 'CASH' | 'CREDIT_CARD';
-    installment?: number;
-};
-
-type IncomesProps = {
+type Props = {
     transactions: TransactionProps[];
     totalAmount: string;
 };
 
-export function IncomesScreen({ totalAmount, transactions }: IncomesProps) {
+export function IncomesScreen({ totalAmount, transactions }: Props) {
     const { totalIncomes } = getTDecimal(transactions);
 
     return (

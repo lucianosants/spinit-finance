@@ -1,18 +1,12 @@
-import { TrendDown } from '@/src/assets/icons';
-import { Card, TransactionCard } from '../components';
-import { currencyFormatter } from '../utils/currency-formatter';
-import { getTDecimal } from '../utils/get-decimal';
 import BigDecimal from 'js-big-decimal';
 
-type TransactionProps = {
-    id: string;
-    description: string;
-    amount: number;
-    date: string;
-    type: 'income' | 'expense';
-    payment_method?: 'CASH' | 'CREDIT_CARD';
-    installment?: number;
-};
+import { TrendDown } from '@/src/assets/icons';
+import { Card, TransactionCard } from '../components';
+
+import { TransactionProps } from '../@types/transactions';
+
+import { currencyFormatter } from '../utils/currency-formatter';
+import { getTDecimal } from '../utils/get-decimal';
 
 type ExpensesProps = {
     transactions: TransactionProps[];

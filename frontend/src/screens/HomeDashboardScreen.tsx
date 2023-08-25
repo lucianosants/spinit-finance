@@ -1,21 +1,13 @@
-import { VariantsProps } from '../@types/button';
+import BigDecimal from 'js-big-decimal';
 
 import { TrendDown, TrendUp } from '@/src/assets/icons';
-
 import { Card, TransactionCard } from '../components';
+
 import { currencyFormatter } from '../utils/currency-formatter';
-import BigDecimal from 'js-big-decimal';
 import { getTDecimal } from '../utils/get-decimal';
 
-type TransactionProps = {
-    id: string;
-    description: string;
-    amount: number;
-    date: string;
-    type: 'income' | 'expense';
-    payment_method?: 'CASH' | 'CREDIT_CARD';
-    installment?: number;
-};
+import { VariantsProps } from '../@types/button';
+import { TransactionProps } from '../@types/transactions';
 
 type HomeProps = {
     totalAmount: string;
