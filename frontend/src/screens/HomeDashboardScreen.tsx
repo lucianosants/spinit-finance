@@ -1,64 +1,29 @@
 import { VariantsProps } from '../@types/button';
-import { HomeDashboardProps } from '../@types/home-dashboard';
+
+import { TrendDown, TrendUp } from '@/src/assets/icons';
+
 import { Card, TransactionCard } from '../components';
 import { currencyFormatter } from '../utils/currency-formatter';
+import BigDecimal from 'js-big-decimal';
+import { getTDecimal } from '../utils/get-decimal';
 
-export function HomeDashboardScreen({ cards }: HomeDashboardProps) {
-    const incomes = [
-        {
-            id: 'joihhauh',
-            description: 'Transferência recebida de Luciano',
-            amount: 1248,
-            date: '06/03/2023',
-            type: 'income',
-        },
-        {
-            id: 'joisjjfjfauh',
-            description: 'Transferência recebida de Tokihara',
-            amount: 2248,
-            date: '07/03/2023',
-            type: 'income',
-        },
-        {
-            id: 'ladkalakdkak',
-            description: 'Transferência recebida de Kowther',
-            amount: 3248,
-            date: '08/03/2023',
-            type: 'income',
-        },
-    ];
+type TransactionProps = {
+    id: string;
+    description: string;
+    amount: number;
+    date: string;
+    type: 'income' | 'expense';
+    payment_method?: 'CASH' | 'CREDIT_CARD';
+    installment?: number;
+};
 
-    const expenses = [
-        {
-            id: 'akoajkodkao',
-            description: 'iPhone 14 Pro Max',
-            amount: 6248,
-            date: '08/03/2023',
-            type: 'expense',
-            payment_method: 'CASH',
-            installment: 0,
-        },
-        {
-            id: 'kkfkfk',
-            description: 'Pizza',
-            amount: 59.99,
-            date: '07/03/2023',
-            type: 'expense',
-            payment_method: 'CREDIT_CARD',
-            installment: 2,
-        },
-        {
-            id: 'akhygyegfeug',
-            description: 'Parcela do Carro',
-            amount: 1248,
-            date: '10/03/2023',
-            type: 'expense',
-            payment_method: 'CASH',
-            installment: 0,
-        },
-    ];
+type HomeProps = {
+    totalAmount: string;
+    transactions: TransactionProps[];
+};
 
-    const transactions = [...incomes, ...expenses];
+export function HomeDashboardScreen({ totalAmount, transactions }: HomeProps) {
+    const { totalIncomes, totalExpenses } = getTDecimal(transactions);
 
     return (
         <>
@@ -69,25 +34,48 @@ export function HomeDashboardScreen({ cards }: HomeDashboardProps) {
                 <div className="flex flex-col gap-4 sm:flex-row">
                     <div className="flex-[60%] p-4 bg-primary-100 flex flex-col justify-start sm:justify-center sm:items-center items-start text-neutral-900 rounded-xl">
                         <p className="text-lg font-semibold">Saldo Total</p>
-                        <p className="text-4xl font-bold">
-                            {currencyFormatter(1400.46)}
+                        <p
+                            className="text-4xl font-bold data-[negative='true']:text-red-700"
+                            data-negative={
+                                totalAmount.includes('-') ? true : false
+                            }
+                        >
+                            {totalAmount}
                         </p>
                     </div>
 
                     <div className="flex-[40%] flex flex-col gap-5">
-                        {cards.map((item, index) => (
-                            <Card.Root
-                                key={index}
-                                url={item.url}
-                                variant={item.variant as VariantsProps}
-                            >
-                                <Card.Header
-                                    icon={item.icon}
-                                    title={item.title}
-                                />
-                                <Card.Currency value={item.value} />
-                            </Card.Root>
-                        ))}
+                        <Card.Root
+                            url={'incomes'}
+                            variant={'success' as VariantsProps}
+                        >
+                            <Card.Header
+                                icon={
+                                    <TrendUp
+                                        size={34}
+                                        className="p-2 rounded-full bg-success-200"
+                                    />
+                                }
+                                title={'Entradas'}
+                            />
+                            <Card.Currency value={totalIncomes.getValue()} />
+                        </Card.Root>
+
+                        <Card.Root
+                            url={'expenses'}
+                            variant={'danger' as VariantsProps}
+                        >
+                            <Card.Header
+                                icon={
+                                    <TrendDown
+                                        size={34}
+                                        className="p-2 rounded-full bg-danger-200"
+                                    />
+                                }
+                                title={'Saídas'}
+                            />
+                            <Card.Currency value={totalExpenses.getValue()} />
+                        </Card.Root>
                     </div>
                 </div>
             </section>
@@ -98,7 +86,19 @@ export function HomeDashboardScreen({ cards }: HomeDashboardProps) {
                 </h3>
 
                 <div className="flex flex-col gap-4 p-4 mt-4 border border-gray-800 rounded-lg">
+                    {!transactions.length && (
+                        <p className="text-red-300">
+                            Não há histórico de transação na sua carteira!
+                        </p>
+                    )}
+
                     {transactions.map((transaction) => {
+                        const amount = currencyFormatter(
+                            new BigDecimal(
+                                String(transaction.amount),
+                            ).getValue(),
+                        );
+
                         return (
                             <TransactionCard.Root key={transaction.id}>
                                 <TransactionCard.Header>
@@ -113,7 +113,7 @@ export function HomeDashboardScreen({ cards }: HomeDashboardProps) {
 
                                 <TransactionCard.Footer>
                                     <TransactionCard.Amount
-                                        amount={transaction.amount}
+                                        amount={amount}
                                         // eslint-disable-next-line
                                         type={transaction.type as any}
                                     />

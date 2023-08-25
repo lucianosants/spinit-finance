@@ -1,37 +1,27 @@
+import BigDecimal from 'js-big-decimal';
+
 import { TrendUp } from '@/src/assets/icons';
 import { Card, TransactionCard } from '../components';
 import { currencyFormatter } from '../utils/currency-formatter';
+import { getTDecimal } from '../utils/get-decimal';
 
-export function IncomesScreen() {
-    const incomes = [
-        {
-            id: 'joihhauh',
-            description: 'Transferência recebida de Luciano',
-            amount: 10_100,
-            date: '06/03/2023',
-            type: 'income',
-        },
-        {
-            id: 'joisjjfjfauh',
-            description: 'Transferência recebida de Tokihara',
-            amount: 1_250,
-            date: '07/03/2023',
-            type: 'income',
-        },
-        {
-            id: 'ladkalakdkak',
-            description: 'Transferência recebida de Kowther',
-            amount: 3_250,
-            date: '08/03/2023',
-            type: 'income',
-        },
-    ];
+type TransactionProps = {
+    id: string;
+    description: string;
+    amount: number;
+    date: string;
+    type: 'income' | 'expense';
+    payment_method?: 'CASH' | 'CREDIT_CARD';
+    installment?: number;
+};
 
-    const transactions = [...incomes];
+type IncomesProps = {
+    transactions: TransactionProps[];
+    totalAmount: string;
+};
 
-    const totalAmount = transactions
-        .map((transaction) => transaction.amount)
-        .reduce((acc, value) => acc + value, 0);
+export function IncomesScreen({ totalAmount, transactions }: IncomesProps) {
+    const { totalIncomes } = getTDecimal(transactions);
 
     return (
         <>
@@ -43,9 +33,7 @@ export function IncomesScreen() {
                 <div className="flex flex-col gap-4 sm:flex-row">
                     <div className="flex-[60%] p-4 bg-primary-100 flex flex-col justify-start sm:justify-center sm:items-center items-start text-neutral-900 rounded-xl">
                         <p className="text-lg font-semibold">Saldo Total</p>
-                        <p className="text-4xl font-bold">
-                            {currencyFormatter(2400.46)}
-                        </p>
+                        <p className="text-4xl font-bold">{totalAmount}</p>
                     </div>
 
                     <div className="flex-[40%] flex flex-col gap-5">
@@ -59,7 +47,7 @@ export function IncomesScreen() {
                                 }
                                 title={'Entradas'}
                             />
-                            <Card.Currency value={totalAmount} />
+                            <Card.Currency value={totalIncomes.getValue()} />
                         </Card.Root>
                     </div>
                 </div>
@@ -71,28 +59,36 @@ export function IncomesScreen() {
                 </h3>
 
                 <div className="flex flex-col gap-4 p-4 mt-4 border border-gray-800 rounded-lg">
-                    {transactions.map((transaction) => {
-                        return (
-                            <TransactionCard.Root key={transaction.id}>
-                                <TransactionCard.Header>
-                                    <TransactionCard.Description>
-                                        {transaction.description}
-                                    </TransactionCard.Description>
+                    {transactions
+                        .filter(({ type }) => type === 'income')
+                        .map((transaction) => {
+                            const amount = currencyFormatter(
+                                new BigDecimal(
+                                    String(transaction.amount),
+                                ).getValue(),
+                            );
 
-                                    <TransactionCard.Date>
-                                        {transaction.date}
-                                    </TransactionCard.Date>
-                                </TransactionCard.Header>
+                            return (
+                                <TransactionCard.Root key={transaction.id}>
+                                    <TransactionCard.Header>
+                                        <TransactionCard.Description>
+                                            {transaction.description}
+                                        </TransactionCard.Description>
 
-                                <TransactionCard.Footer>
-                                    <TransactionCard.Amount
-                                        amount={transaction.amount}
-                                        type={'income'}
-                                    />
-                                </TransactionCard.Footer>
-                            </TransactionCard.Root>
-                        );
-                    })}
+                                        <TransactionCard.Date>
+                                            {transaction.date}
+                                        </TransactionCard.Date>
+                                    </TransactionCard.Header>
+
+                                    <TransactionCard.Footer>
+                                        <TransactionCard.Amount
+                                            amount={amount}
+                                            type={'income'}
+                                        />
+                                    </TransactionCard.Footer>
+                                </TransactionCard.Root>
+                            );
+                        })}
                 </div>
             </section>
         </>

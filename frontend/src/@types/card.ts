@@ -13,5 +13,5 @@ export type HeaderCardProps = {
 };
 
 export type CurrencyCardProps = {
-    value: number;
+    value: string;
 };

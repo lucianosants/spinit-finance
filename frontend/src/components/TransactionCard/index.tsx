@@ -1,5 +1,4 @@
 import { twMerge } from 'tailwind-merge';
-import { currencyFormatter } from '@/src/utils/currency-formatter';
 import { ReactNode } from 'react';
 
 type TransactionCardRootProps = {
@@ -8,8 +7,6 @@ type TransactionCardRootProps = {
 
 type TransactionCardHeaderProps = {
     children?: ReactNode;
-    // date: string;
-    // description: string;
 };
 
 const transactionTypes = {
@@ -20,7 +17,7 @@ const transactionTypes = {
 type TransactionCardFooterProps = {
     children?: ReactNode;
     type: keyof typeof transactionTypes;
-    amount: number;
+    amount: string;
 };
 
 export function Root({ children }: TransactionCardRootProps) {
@@ -61,7 +58,7 @@ export function Amount({ type, amount }: TransactionCardFooterProps) {
     return (
         <span className={twMerge('text-sm font-semibold sm:text-base', types)}>
             {type === 'income' ? '+' : '-'}
-            {currencyFormatter(amount)}
+            {amount}
         </span>
     );
 }
