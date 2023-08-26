@@ -4,6 +4,7 @@ import {
 	createUser,
 	getAllUsers,
 	updateUser,
+	getAUser,
 } from '../controllers/user-controller';
 
 import {
@@ -32,7 +33,8 @@ const router = Router();
 
 router.post('/users', createUser);
 router.get('/users', getAllUsers);
-router.patch('/users/:id', updateUser);
+router.patch('/users/edit/:id', updateUser);
+router.get('/users/:id', authenticateMiddleware, getAUser);
 
 router.get('/incomes', getAllIncomes);
 router.post('/incomes', createIncome);

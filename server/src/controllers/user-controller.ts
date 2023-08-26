@@ -61,6 +61,52 @@ async function getAllUsers(req: Request, res: Response) {
 	}
 }
 
+async function getAUser(req: Request, res: Response) {
+	try {
+		const paramsSchema = z.object({
+			id: z.string(),
+		});
+
+		const { id } = paramsSchema.parse(req.params);
+
+		const user = await client.user.findUnique({
+			where: {
+				id,
+			},
+			include: {
+				incomes: {
+					where: {
+						userId: id,
+					},
+					orderBy: {
+						date: 'desc',
+					},
+				},
+				expenses: {
+					where: {
+						userId: id,
+					},
+					orderBy: {
+						date: 'desc',
+					},
+				},
+			},
+		});
+
+		const mappedUser = {
+			id: user?.id,
+			first_name: user?.first_name,
+			incomes: user?.incomes,
+			expenses: user?.expenses,
+			userName: user?.username,
+		};
+
+		return res.status(200).json(mappedUser);
+	} catch (error) {
+		res.status(400).send(error);
+	}
+}
+
 async function updateUser(req: Request, res: Response) {
 	try {
 		const bodySchema = z.object({
@@ -88,4 +134,4 @@ async function updateUser(req: Request, res: Response) {
 	}
 }
 
-export { createUser, getAllUsers, updateUser };
+export { createUser, getAllUsers, updateUser, getAUser };
