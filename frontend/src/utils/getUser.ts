@@ -1,4 +1,5 @@
 import decode, { JwtPayload } from 'jwt-decode';
+import { cookies } from 'next/headers';
 
 type User = JwtPayload & {
     id: string;
@@ -6,7 +7,9 @@ type User = JwtPayload & {
     name: string;
 };
 
-export function getUser(token: string) {
+export function getUser() {
+    const token = cookies().get('@auth')?.value;
+
     if (!token) {
         throw new Error('Unauthenticated');
     }
