@@ -67,7 +67,7 @@ async function updateExpense(req: Request, res: Response) {
 			description: z.string(),
 			payment_method: z.enum(['CASH', 'CREDIT_CARD']),
 			installment: z.number(),
-			date: z.string(),
+			date: z.string().optional(),
 		});
 
 		const { id } = req.params;

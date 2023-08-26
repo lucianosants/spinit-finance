@@ -59,7 +59,7 @@ async function updateIncome(req: Request, res: Response) {
 		const bodySchema = z.object({
 			amount: z.number(),
 			description: z.string(),
-			date: z.string(),
+			date: z.string().optional(),
 		});
 
 		const { amount, description, date } = bodySchema.parse(req.body);
