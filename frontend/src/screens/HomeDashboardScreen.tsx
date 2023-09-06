@@ -7,7 +7,10 @@ import { currencyFormatter } from '../utils/currency-formatter';
 import { getTDecimal } from '../utils/get-decimal';
 
 import { VariantsProps } from '../@types/button';
-import { TransactionProps } from '../@types/transactions';
+import {
+    TransactionProps,
+    TransactionTypesProps,
+} from '../@types/transactions';
 
 type HomeProps = {
     totalAmount: string;
@@ -106,9 +109,12 @@ export function HomeDashboardScreen({ totalAmount, transactions }: HomeProps) {
                                 <TransactionCard.Footer>
                                     <TransactionCard.Amount
                                         amount={amount}
-                                        // eslint-disable-next-line
-                                        type={transaction.type as any}
+                                        type={
+                                            transaction.type as TransactionTypesProps
+                                        }
                                     />
+
+                                    <TransactionCard.Menu {...transaction} />
                                 </TransactionCard.Footer>
                             </TransactionCard.Root>
                         );

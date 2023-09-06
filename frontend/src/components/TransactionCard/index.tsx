@@ -1,5 +1,8 @@
 import { twMerge } from 'tailwind-merge';
 import { ReactNode } from 'react';
+import { Menu } from './Menu';
+
+export { Menu };
 
 type TransactionCardRootProps = {
     children: ReactNode;

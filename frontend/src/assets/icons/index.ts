@@ -14,6 +14,9 @@ import {
     CaretDown,
     List,
     Crown,
+    PencilSimple,
+    TrashSimple,
+    X,
 } from '@phosphor-icons/react';
 
 export {
@@ -30,4 +33,7 @@ export {
     CaretDown,
     List,
     Crown,
+    PencilSimple,
+    TrashSimple,
+    X,
 };

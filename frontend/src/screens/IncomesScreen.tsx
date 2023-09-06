@@ -78,6 +78,9 @@ export function IncomesScreen({ totalAmount, transactions }: Props) {
                                             amount={amount}
                                             type={'income'}
                                         />
+                                        <TransactionCard.Menu
+                                            {...transaction}
+                                        />
                                     </TransactionCard.Footer>
                                 </TransactionCard.Root>
                             );

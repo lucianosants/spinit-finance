@@ -91,6 +91,10 @@ export function ExpensesScreen({ totalAmount, transactions }: ExpensesProps) {
                                                   </TransactionCard.Installment>
                                               )
                                             : null}
+
+                                        <TransactionCard.Menu
+                                            {...transaction}
+                                        />
                                     </TransactionCard.Footer>
                                 </TransactionCard.Root>
                             );
