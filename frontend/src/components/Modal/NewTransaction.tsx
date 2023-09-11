@@ -1,57 +1,53 @@
+'use client';
+
 import './styles.css';
 
-import { useEffect, useState } from 'react';
+import { ReactNode, useEffect, useState } from 'react';
 import * as Dialog from '@radix-ui/react-dialog';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 
 import { Button, Form } from '..';
-import { PencilSimple, SpinnerGap, X } from '../../assets/icons';
+import { SpinnerGap, X } from '../../assets/icons';
 
 import {
-    ExpensesProps,
-    expenseSchema,
+    TransactionProps,
+    transactionSchema,
 } from '@/src/lib/zod/schemas/transaction';
 
-import {
-    PaymentMethodProps,
-    TransactionBaseProps,
-} from '@/src/@types/transactions';
+import { TransactionTypesProps } from '@/src/@types/transactions';
 
-type Props = TransactionBaseProps & {
-    handleEdit: (data: ExpensesProps) => void;
-    payment_method?: PaymentMethodProps;
+type Props = {
+    handleEdit: (data: TransactionProps) => void;
+    type?: TransactionTypesProps;
+    children: ReactNode;
+    userId: string;
 };
 
 const wait = () => new Promise((resolve) => setTimeout(resolve, 1000));
 
-export function Modal(props: Props) {
-    const {
-        amount,
-        date,
-        description,
-        installment,
-        payment_method,
-        handleEdit,
-    } = props;
+export function NewTransaction(props: Props) {
+    const { handleEdit, children, userId, type } = props;
 
     const [open, setOpen] = useState(false);
 
     const {
         handleSubmit,
-        formState: { errors, isSubmitting },
+        formState: { errors, isSubmitting, isSubmitSuccessful },
         register,
         watch,
         setValue,
-    } = useForm<ExpensesProps>({
+        reset,
+    } = useForm<TransactionProps>({
         mode: 'onBlur',
-        resolver: zodResolver(expenseSchema),
+        resolver: zodResolver(transactionSchema),
         defaultValues: {
-            amount,
-            description,
-            payment_method,
-            installment,
-            date,
+            user: {
+                id: userId,
+            },
+        },
+        resetOptions: {
+            keepValues: false,
         },
     });
 
@@ -61,30 +57,26 @@ export function Modal(props: Props) {
         if (paymentMethod === 'CASH') {
             setValue('installment', 0);
         }
-    }, [paymentMethod, setValue]);
+
+        if (isSubmitSuccessful) {
+            reset();
+            wait().then(() => setOpen(false));
+        }
+    }, [paymentMethod, setValue, isSubmitSuccessful, reset]);
 
     return (
         <Dialog.Root open={open} onOpenChange={setOpen}>
-            <Dialog.Trigger asChild>
-                <Button.Action
-                    variant="outlined-info"
-                    className="p-2"
-                    aria-label="Editar"
-                    title="Editar"
-                >
-                    <PencilSimple weight="bold" />
-                </Button.Action>
-            </Dialog.Trigger>
+            <Dialog.Trigger asChild>{children}</Dialog.Trigger>
 
             <Dialog.Portal>
                 <Dialog.Overlay className="bg-blackA9 data-[state=open]:animate-overlayShow fixed inset-0 bg-gray-950/80 backdrop-blur-lg" />
 
                 <Dialog.Content className="fixed overflow-y-auto top-[50%] left-[50%] max-h-[85vh] w-[90vw] max-w-[450px] translate-x-[-50%] translate-y-[-50%] rounded-xl bg-gray-900 p-[25px] font-sans border border-default">
                     <Dialog.Title className="text-mauve12 m-0 text-[17px] font-medium">
-                        Editar transação
+                        Adicionar transação
                     </Dialog.Title>
                     <Dialog.Description className="text-mauve11 mt-[10px] mb-5 text-[15px] leading-normal">
-                        Alterar informações dessa transação.
+                        Adicionar uma nova transação.
                     </Dialog.Description>
 
                     <div>
@@ -112,7 +104,7 @@ export function Modal(props: Props) {
                                 />
                             </Form.Field>
 
-                            {payment_method && (
+                            {type === 'expense' && (
                                 <Form.Field
                                     label="Forma de pagamento"
                                     error={errors.payment_method?.message}
@@ -131,7 +123,7 @@ export function Modal(props: Props) {
                                 </Form.Field>
                             )}
 
-                            {installment && paymentMethod === 'CREDIT_CARD' && (
+                            {paymentMethod === 'CREDIT_CARD' && (
                                 <Form.Field
                                     label="Parcelas"
                                     error={errors.installment?.message}
@@ -159,9 +151,6 @@ export function Modal(props: Props) {
                                 <Button.Action
                                     variant="success"
                                     type="submit"
-                                    onClick={() =>
-                                        wait().then(() => setOpen(false))
-                                    }
                                     icon={
                                         isSubmitting && (
                                             <SpinnerGap

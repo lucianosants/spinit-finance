@@ -7,6 +7,8 @@ import { TransactionProps } from '../@types/transactions';
 
 import { currencyFormatter } from '../utils/currency-formatter';
 import { getTDecimal } from '../utils/get-decimal';
+import { NewTransaction } from '../components/NewTransaction';
+import { getUser } from '../utils/getUser';
 
 type ExpensesProps = {
     transactions: TransactionProps[];
@@ -15,6 +17,8 @@ type ExpensesProps = {
 
 export function ExpensesScreen({ totalAmount, transactions }: ExpensesProps) {
     const { totalExpenses } = getTDecimal(transactions);
+
+    const { id } = getUser();
 
     return (
         <>
@@ -47,11 +51,22 @@ export function ExpensesScreen({ totalAmount, transactions }: ExpensesProps) {
             </section>
 
             <section className="flex flex-col mt-6">
-                <h3 className="text-xl font-bold text-gray-200 text-start">
-                    Transações
-                </h3>
+                <div className="flex justify-between">
+                    <h3 className="text-xl font-bold text-gray-200 text-start">
+                        Transações
+                    </h3>
+
+                    <NewTransaction type="expense" userId={id} />
+                </div>
 
                 <div className="flex flex-col gap-4 p-4 mt-4 border border-gray-800 rounded-lg">
+                    {!transactions.filter(({ type }) => type === 'expense')
+                        .length && (
+                        <p className="text-red-300">
+                            Não há histórico de saídas na sua carteira!
+                        </p>
+                    )}
+
                     {transactions
                         .filter(({ type }) => type === 'expense')
                         .map((transaction) => {

@@ -4,10 +4,11 @@ import { useRouter } from 'next/navigation';
 import Cookies from 'js-cookie';
 
 import { api } from '@/src/lib/axios';
-import { Modal } from '../Modal';
-import { RemoveDialog } from '../Modal/AlertDialog';
-import { ExpensesProps } from '@/src/lib/zod/schemas/transaction';
+import { Edit, RemoveDialog } from '../Modal';
+import { TransactionProps as TransactionPropsSchema } from '@/src/lib/zod/schemas/transaction';
 import { TransactionProps } from '@/src/@types/transactions';
+import { Button } from '..';
+import { PencilSimple } from '@/src/assets/icons';
 
 export function Menu({ ...props }: TransactionProps) {
     const router = useRouter();
@@ -22,7 +23,7 @@ export function Menu({ ...props }: TransactionProps) {
         },
     };
 
-    const handleEdit = async (data: ExpensesProps) => {
+    const handleEdit = async (data: TransactionPropsSchema) => {
         await api.patch(url, data, authHeaders);
         router.refresh();
     };
@@ -34,7 +35,16 @@ export function Menu({ ...props }: TransactionProps) {
 
     return (
         <div className="flex items-center gap-2 mt-1">
-            <Modal handleEdit={handleEdit} {...props} />
+            <Edit handleEdit={handleEdit} {...props}>
+                <Button.Action
+                    variant="outlined-info"
+                    className="p-2"
+                    aria-label="Editar"
+                    title="Editar"
+                >
+                    <PencilSimple weight="bold" />
+                </Button.Action>
+            </Edit>
             <RemoveDialog handleDelete={handleDelete} {...props} />
         </div>
     );

@@ -37,7 +37,7 @@ router.patch('/users/edit/:id', updateUser);
 router.get('/users/:id', authenticateMiddleware, getAUser);
 
 router.get('/incomes', getAllIncomes);
-router.post('/incomes', createIncome);
+router.post('/incomes', authenticateMiddleware, createIncome);
 
 router.patch('/incomes/:id', authenticateMiddleware, updateIncome);
 router.delete('/incomes/:id', authenticateMiddleware, deleteIncome);
@@ -49,7 +49,7 @@ router.get(
 );
 
 router.get('/expenses', getAllExpenses);
-router.post('/expenses', createExpense);
+router.post('/expenses', authenticateMiddleware, createExpense);
 router.patch('/expenses/:id', authenticateMiddleware, updateExpense);
 router.delete('/expenses/:id', authenticateMiddleware, deleteExpense);
 router.get('/expenses/:id', getAnExpense);

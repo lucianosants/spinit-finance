@@ -17,6 +17,7 @@ import {
     PencilSimple,
     TrashSimple,
     X,
+    Plus,
 } from '@phosphor-icons/react';
 
 export {
@@ -36,4 +37,5 @@ export {
     PencilSimple,
     TrashSimple,
     X,
+    Plus,
 };

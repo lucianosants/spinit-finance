@@ -20,7 +20,14 @@ export function Api() {
             ...data.expenses,
         ] as TransactionProps[];
 
-        return transactions;
+        const sortedTransactions = transactions.sort((a, b) => {
+            const dateA = new Date(a.date);
+            const dateB = new Date(b.date);
+
+            return dateB.getTime() - dateA.getTime();
+        });
+
+        return sortedTransactions;
     };
 
     return {

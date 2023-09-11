@@ -7,6 +7,8 @@ import { TransactionProps } from '../@types/transactions';
 
 import { currencyFormatter } from '../utils/currency-formatter';
 import { getTDecimal } from '../utils/get-decimal';
+import { NewTransaction } from '../components/NewTransaction';
+import { getUser } from '../utils/getUser';
 
 type Props = {
     transactions: TransactionProps[];
@@ -15,10 +17,11 @@ type Props = {
 
 export function IncomesScreen({ totalAmount, transactions }: Props) {
     const { totalIncomes } = getTDecimal(transactions);
+    const { id } = getUser();
 
     return (
         <>
-            <section className="w-full mt-4">
+            <section className="relative w-full mt-4">
                 <h3 className="mb-4 text-2xl font-bold text-gray-200 text-start">
                     Dashboard - Entradas
                 </h3>
@@ -47,11 +50,22 @@ export function IncomesScreen({ totalAmount, transactions }: Props) {
             </section>
 
             <section className="flex flex-col mt-6">
-                <h3 className="text-xl font-bold text-gray-200 text-start">
-                    Transações
-                </h3>
+                <div className="flex justify-between">
+                    <h3 className="text-xl font-bold text-gray-200 text-start">
+                        Transações
+                    </h3>
+
+                    <NewTransaction type="income" userId={id} />
+                </div>
 
                 <div className="flex flex-col gap-4 p-4 mt-4 border border-gray-800 rounded-lg">
+                    {!transactions.filter(({ type }) => type === 'income')
+                        .length && (
+                        <p className="text-red-300">
+                            Não há histórico de entradas na sua carteira!
+                        </p>
+                    )}
+
                     {transactions
                         .filter(({ type }) => type === 'income')
                         .map((transaction) => {

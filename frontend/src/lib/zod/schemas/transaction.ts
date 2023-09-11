@@ -1,6 +1,6 @@
 import { z } from 'zod';
 
-export const expenseSchema = z.object({
+export const transactionSchema = z.object({
     amount: z.number({
         errorMap: () => ({
             message: 'Campo Inválido',
@@ -20,6 +20,11 @@ export const expenseSchema = z.object({
         })
         .optional(),
     date: z.string().min(8, 'Por favor, defina uma data válida!'),
+    user: z
+        .object({
+            id: z.string(),
+        })
+        .optional(),
 });
 
-export type ExpensesProps = z.infer<typeof expenseSchema>;
+export type TransactionProps = z.infer<typeof transactionSchema>;
