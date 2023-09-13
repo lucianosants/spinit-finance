@@ -45,6 +45,7 @@ export function NewTransaction(props: Props) {
             user: {
                 id: userId,
             },
+            installment: 0,
         },
         resetOptions: {
             keepValues: false,
