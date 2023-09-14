@@ -12,11 +12,16 @@ import { getUser } from '../utils/getUser';
 
 type ExpensesProps = {
     transactions: TransactionProps[];
+    allTransactions: TransactionProps[];
     totalAmount: string;
 };
 
-export function ExpensesScreen({ totalAmount, transactions }: ExpensesProps) {
-    const { totalExpenses } = getTDecimal(transactions);
+export function ExpensesScreen({
+    totalAmount,
+    transactions,
+    allTransactions,
+}: ExpensesProps) {
+    const { totalExpenses } = getTDecimal(allTransactions);
 
     const { id } = getUser();
 

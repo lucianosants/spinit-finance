@@ -20,7 +20,7 @@ export function Action({
         <button
             {...rest}
             className={twMerge(
-                'px-4 py-2 text-sm flex items-center gap-4 font-bold rounded-lg border-transparent transition-all duration-300 border-[2px]',
+                'px-4 py-2 text-sm flex items-center gap-4 disabled:opacity-50 font-bold rounded-lg border-transparent transition-all duration-300 border-[2px]',
                 className,
                 colorButton,
                 widthButton,

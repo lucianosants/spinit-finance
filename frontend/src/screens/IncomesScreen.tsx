@@ -12,11 +12,16 @@ import { getUser } from '../utils/getUser';
 
 type Props = {
     transactions: TransactionProps[];
+    allTransactions: TransactionProps[];
     totalAmount: string;
 };
 
-export function IncomesScreen({ totalAmount, transactions }: Props) {
-    const { totalIncomes } = getTDecimal(transactions);
+export function IncomesScreen({
+    totalAmount,
+    transactions,
+    allTransactions,
+}: Props) {
+    const { totalIncomes } = getTDecimal(allTransactions);
     const { id } = getUser();
 
     return (

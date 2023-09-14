@@ -22,7 +22,7 @@ export function Navigate({
         <Link
             {...rest}
             className={twMerge(
-                'px-4 py-2 text-sm flex items-center gap-4 font-bold rounded-lg border-transparent transition-all duration-300 border-[2px]',
+                'px-4 py-2 text-sm flex items-center gap-4 font-bold disabled:opacity-50 rounded-lg border-transparent transition-all duration-300 border-[2px]',
                 className,
                 colorLink,
                 widthLink,

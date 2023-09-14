@@ -1,7 +1,7 @@
+import Link from 'next/link';
 import BigDecimal from 'js-big-decimal';
 
 import { TrendDown, TrendUp } from '@/src/assets/icons';
-import { Card, TransactionCard } from '../components';
 
 import { currencyFormatter } from '../utils/currency-formatter';
 import { getTDecimal } from '../utils/get-decimal';
@@ -11,14 +11,20 @@ import {
     TransactionProps,
     TransactionTypesProps,
 } from '../@types/transactions';
+import { Card, TransactionCard } from '../components';
 
 type HomeProps = {
     totalAmount: string;
     transactions: TransactionProps[];
+    allTransactions: TransactionProps[];
 };
 
-export function HomeDashboardScreen({ totalAmount, transactions }: HomeProps) {
-    const { totalIncomes, totalExpenses } = getTDecimal(transactions);
+export function HomeDashboardScreen({
+    totalAmount,
+    transactions,
+    allTransactions,
+}: HomeProps) {
+    const { totalIncomes, totalExpenses } = getTDecimal(allTransactions);
 
     return (
         <>
@@ -119,6 +125,26 @@ export function HomeDashboardScreen({ totalAmount, transactions }: HomeProps) {
                             </TransactionCard.Root>
                         );
                     })}
+                </div>
+
+                <div className="flex gap-6 pb-12 mt-6">
+                    <p className="">
+                        Veja mais transações em{' '}
+                        <Link
+                            className="font-bold text-gray-300 transition-colors duration-200 hover:text-success-100"
+                            href="/home/incomes"
+                        >
+                            Incomes
+                        </Link>
+                        {' e '}
+                        <Link
+                            href="/home/expenses"
+                            className="font-bold text-gray-300 transition-colors duration-200 hover:text-danger-100"
+                        >
+                            Expenses
+                        </Link>
+                        .
+                    </p>
                 </div>
             </section>
         </>

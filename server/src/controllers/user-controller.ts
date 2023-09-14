@@ -68,6 +68,10 @@ async function getAUser(req: Request, res: Response) {
 		});
 
 		const { id } = paramsSchema.parse(req.params);
+		const query = req.query;
+
+		let take = Number(query.take);
+		let skipValue = Number(query.skip);
 
 		const user = await client.user.findUnique({
 			where: {
@@ -81,6 +85,8 @@ async function getAUser(req: Request, res: Response) {
 					orderBy: {
 						date: 'desc',
 					},
+					take: take,
+					skip: skipValue,
 				},
 				expenses: {
 					where: {
@@ -89,6 +95,8 @@ async function getAUser(req: Request, res: Response) {
 					orderBy: {
 						date: 'desc',
 					},
+					take: take,
+					skip: skipValue,
 				},
 			},
 		});

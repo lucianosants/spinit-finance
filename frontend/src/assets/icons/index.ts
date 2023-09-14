@@ -18,6 +18,8 @@ import {
     TrashSimple,
     X,
     Plus,
+    CaretLeft,
+    CaretRight,
 } from '@phosphor-icons/react';
 
 export {
@@ -38,4 +40,6 @@ export {
     TrashSimple,
     X,
     Plus,
+    CaretLeft,
+    CaretRight,
 };
