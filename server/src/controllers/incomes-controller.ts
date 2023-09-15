@@ -40,19 +40,19 @@ async function createIncome(req: Request, res: Response) {
 	}
 }
 
-async function getAllIncomes(req: Request, res: Response) {
-	try {
-		const income = await client.income.findMany({
-			orderBy: {
-				date: 'desc',
-			},
-		});
+// async function getAllIncomes(req: Request, res: Response) {
+// 	try {
+// 		const income = await client.income.findMany({
+// 			orderBy: {
+// 				date: 'desc',
+// 			},
+// 		});
 
-		return res.status(200).json(income);
-	} catch (error) {
-		res.status(400).send(error);
-	}
-}
+// 		return res.status(200).json(income);
+// 	} catch (error) {
+// 		res.status(400).send(error);
+// 	}
+// }
 
 async function updateIncome(req: Request, res: Response) {
 	try {
@@ -99,21 +99,21 @@ async function deleteIncome(req: Request, res: Response) {
 	}
 }
 
-async function getAnIncome(req: Request, res: Response) {
-	try {
-		const { id } = req.params;
+// async function getAnIncome(req: Request, res: Response) {
+// 	try {
+// 		const { id } = req.params;
 
-		const income = await client.income.findUnique({
-			where: {
-				id,
-			},
-		});
+// 		const income = await client.income.findUnique({
+// 			where: {
+// 				id,
+// 			},
+// 		});
 
-		return res.status(200).json(income);
-	} catch (error) {
-		res.status(400).send(error);
-	}
-}
+// 		return res.status(200).json(income);
+// 	} catch (error) {
+// 		res.status(400).send(error);
+// 	}
+// }
 
 async function getAllIncomesByUserId(req: Request, res: Response) {
 	try {
@@ -136,9 +136,9 @@ async function getAllIncomesByUserId(req: Request, res: Response) {
 
 export {
 	createIncome,
-	getAllIncomes,
+	// getAllIncomes,
 	updateIncome,
 	deleteIncome,
-	getAnIncome,
+	// getAnIncome,
 	getAllIncomesByUserId,
 };

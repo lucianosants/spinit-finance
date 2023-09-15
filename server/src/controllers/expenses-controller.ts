@@ -46,20 +46,6 @@ async function createExpense(req: Request, res: Response) {
 	}
 }
 
-async function getAllExpenses(req: Request, res: Response) {
-	try {
-		const expenses = await client.expense.findMany({
-			orderBy: {
-				date: 'desc',
-			},
-		});
-
-		return res.status(200).json(expenses);
-	} catch (error) {
-		res.status(400).send(error);
-	}
-}
-
 async function updateExpense(req: Request, res: Response) {
 	try {
 		const bodySchema = z.object({
@@ -110,22 +96,6 @@ async function deleteExpense(req: Request, res: Response) {
 	}
 }
 
-async function getAnExpense(req: Request, res: Response) {
-	try {
-		const { id } = req.params;
-
-		const expense = await client.expense.findUnique({
-			where: {
-				id,
-			},
-		});
-
-		return res.status(200).json(expense);
-	} catch (error) {
-		res.status(400).send(error);
-	}
-}
-
 async function getAllExpensesByUserId(req: Request, res: Response) {
 	try {
 		const { userId } = req.params;
@@ -144,11 +114,4 @@ async function getAllExpensesByUserId(req: Request, res: Response) {
 	}
 }
 
-export {
-	createExpense,
-	getAllExpenses,
-	updateExpense,
-	deleteExpense,
-	getAnExpense,
-	getAllExpensesByUserId,
-};
+export { createExpense, updateExpense, deleteExpense, getAllExpensesByUserId };

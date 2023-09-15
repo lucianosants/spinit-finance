@@ -51,16 +51,6 @@ async function createUser(req: Request, res: Response) {
 	}
 }
 
-async function getAllUsers(req: Request, res: Response) {
-	try {
-		const users = await client.user.findMany();
-
-		return res.status(200).json(users);
-	} catch (error) {
-		res.status(400).send(error);
-	}
-}
-
 async function getAUser(req: Request, res: Response) {
 	try {
 		const paramsSchema = z.object({
@@ -115,31 +105,4 @@ async function getAUser(req: Request, res: Response) {
 	}
 }
 
-async function updateUser(req: Request, res: Response) {
-	try {
-		const bodySchema = z.object({
-			first_name: z.string(),
-			last_name: z.string(),
-			username: z.string(),
-		});
-
-		const { id } = req.params;
-
-		const userData = bodySchema.parse(req.body);
-
-		const user = await client.user.update({
-			where: {
-				id,
-			},
-			data: {
-				...userData,
-			},
-		});
-
-		return res.status(200).json(user);
-	} catch (error) {
-		res.status(400).send(error);
-	}
-}
-
-export { createUser, getAllUsers, updateUser, getAUser };
+export { createUser, getAUser };
