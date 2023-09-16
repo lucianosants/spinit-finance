@@ -2,7 +2,7 @@
 
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 
-import { Button } from '..';
+import { Button, Tooltip } from '..';
 import { CaretLeft, CaretRight } from '../../assets/icons';
 import { PaginationProps } from '@/src/@types/pagination';
 
@@ -25,8 +25,11 @@ export function Pagination({ hasPrevPage, hasNextPage }: PaginationProps) {
                 }}
                 variant={hasPrevPage ? 'outlined-default' : 'transparent'}
                 disabled={!hasPrevPage}
-                icon={<CaretLeft weight="bold" size={20} />}
-                title="Anterior"
+                icon={
+                    <Tooltip content="Anterior">
+                        <CaretLeft weight="bold" size={20} />
+                    </Tooltip>
+                }
             >
                 <span className="sr-only">Anterior</span>
             </Button.Action>
@@ -37,8 +40,11 @@ export function Pagination({ hasPrevPage, hasNextPage }: PaginationProps) {
                 }}
                 variant={hasNextPage ? 'outlined-default' : 'transparent'}
                 disabled={!hasNextPage}
-                icon={<CaretRight weight="bold" size={20} />}
-                title="Próximo"
+                icon={
+                    <Tooltip content="Próximo">
+                        <CaretRight weight="bold" size={20} />
+                    </Tooltip>
+                }
             >
                 <span className="sr-only">Próximo</span>
             </Button.Action>

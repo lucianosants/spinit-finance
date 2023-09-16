@@ -7,7 +7,7 @@ import { api } from '@/src/lib/axios';
 import { Edit, RemoveDialog } from '../Modal';
 import { TransactionProps as TransactionPropsSchema } from '@/src/lib/zod/schemas/transaction';
 import { TransactionProps } from '@/src/@types/transactions';
-import { Button } from '..';
+import { Button, Tooltip } from '..';
 import { PencilSimple } from '@/src/assets/icons';
 
 export function Menu({ ...props }: TransactionProps) {
@@ -37,12 +37,17 @@ export function Menu({ ...props }: TransactionProps) {
         <div className="flex items-center gap-2 mt-1">
             <Edit handleEdit={handleEdit} {...props}>
                 <Button.Action
-                    variant="outlined-info"
-                    className="p-2"
+                    variant="info"
+                    className="p-0"
                     aria-label="Editar"
-                    title="Editar"
                 >
-                    <PencilSimple weight="bold" />
+                    <Tooltip content="Editar transação">
+                        <PencilSimple
+                            weight="bold"
+                            size={27}
+                            className="p-[5px]"
+                        />
+                    </Tooltip>
                 </Button.Action>
             </Edit>
             <RemoveDialog handleDelete={handleDelete} {...props} />

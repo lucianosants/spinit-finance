@@ -1,7 +1,7 @@
 import * as AlertDialog from '@radix-ui/react-alert-dialog';
 
 import { TrashSimple } from '../../assets/icons';
-import { Button } from '..';
+import { Button, Tooltip } from '..';
 
 type Props = {
     id: string;
@@ -12,13 +12,10 @@ type Props = {
 export const RemoveDialog = ({ id, description, handleDelete }: Props) => (
     <AlertDialog.Root>
         <AlertDialog.Trigger asChild>
-            <Button.Action
-                variant="outlined-danger"
-                className="p-2"
-                aria-label="Editar"
-                title="Editar"
-            >
-                <TrashSimple weight="bold" />
+            <Button.Action variant="danger" className="p-0" aria-label="Editar">
+                <Tooltip content="Remover transação">
+                    <TrashSimple weight="bold" className="p-[5px]" size={28} />
+                </Tooltip>
             </Button.Action>
         </AlertDialog.Trigger>
 

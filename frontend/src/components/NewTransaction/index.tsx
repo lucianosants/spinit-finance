@@ -1,7 +1,7 @@
 'use client';
 
 import { TransactionProps } from '@/src/lib/zod/schemas/transaction';
-import { Button } from '..';
+import { Button, Tooltip } from '..';
 import { NewTransaction as Modal } from '../Modal/NewTransaction';
 import { Plus } from '@/src/assets/icons';
 import { TransactionTypesProps } from '@/src/@types/transactions';
@@ -40,17 +40,16 @@ export function NewTransaction({ userId, type }: Props) {
 
     return (
         <Modal type={type} userId={userId} handleEdit={handleEdit}>
-            <div className="relative group">
-                <span className="absolute top-0 right-0 invisible w-40 p-2 -mt-12 text-gray-100 bg-gray-700 rounded-lg shadow group-hover:visible">
-                    Nova transação
-                </span>
-                <Button.Action
-                    className="p-2"
-                    variant="primary"
-                    icon={<Plus size={24} />}
-                    aria-label="Nova transação"
-                />
-            </div>
+            <Button.Action
+                className="p-2"
+                variant="primary"
+                icon={
+                    <Tooltip content="Nova transação">
+                        <Plus size={24} />
+                    </Tooltip>
+                }
+                aria-label="Nova transação"
+            />
         </Modal>
     );
 }

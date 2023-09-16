@@ -8,7 +8,7 @@ import { SquaresFour, TrendDown, TrendUp } from '@/src/assets/icons';
 
 const options = [
     {
-        label: 'Todas',
+        label: 'Inicio',
         url: '/home',
         icon: <SquaresFour size={24} />,
     },
