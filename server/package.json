@@ -3,9 +3,13 @@
 	"version": "1.0.0",
 	"description": "",
 	"main": "index.js",
+	"engines": {
+		"node": "18"
+	},
 	"scripts": {
 		"dev": "tsx watch src/server.ts",
-		"dbinstall": "prisma generate"
+		"build": "tsup src",
+		"start": "node dist/server.js"
 	},
 	"keywords": [],
 	"author": "",
@@ -26,6 +30,7 @@
 		"@types/jsonwebtoken": "^9.0.2",
 		"@types/node": "^20.3.1",
 		"dotenv": "^16.3.1",
+		"tsup": "^7.2.0",
 		"tsx": "^3.12.7",
 		"typescript": "^5.1.3"
 	}
