@@ -1,13 +1,9 @@
-'use client';
-
-import { useState } from 'react';
-
-import { Button, Dropdown } from '@/src/components';
+import { Button } from '@/src/components';
 import { List, Question, Crown } from '@/src/assets/icons';
 
-export function HeaderMenu() {
-    const [isOpen, setIsOpen] = useState(false);
+import { Dropdown } from '../../components';
 
+export function HeaderMenu() {
     const links = [
         { title: 'Premium', icon: <Crown size={20} weight="bold" /> },
         { title: 'Ajuda', icon: <Question size={20} weight="bold" /> },
@@ -15,29 +11,23 @@ export function HeaderMenu() {
 
     return (
         <>
-            <Dropdown.Root>
-                <div className="md:hidden">
-                    <Dropdown.Trigger onClick={() => setIsOpen(!isOpen)}>
-                        <List size={24} weight="bold" />
-                    </Dropdown.Trigger>
-                </div>
-
-                <Dropdown.Menu isOpen={isOpen}>
-                    {links.map((link, index) => (
-                        <Dropdown.Item key={index}>
-                            <Button.Navigate
-                                width="full"
-                                variant="transparent"
-                                href="#"
-                                onClick={() => setIsOpen(false)}
-                                icon={link.icon}
-                                position="start"
-                            >
-                                {link.title}
-                            </Button.Navigate>
-                        </Dropdown.Item>
-                    ))}
-                </Dropdown.Menu>
+            <Dropdown.Root
+                className="block md:hidden"
+                trigger={<List size={24} weight="bold" />}
+            >
+                {links.map((link, index) => (
+                    <Dropdown.Item key={index}>
+                        <Button.Navigate
+                            width="full"
+                            variant="transparent"
+                            href="#"
+                            icon={link.icon}
+                            position="start"
+                        >
+                            {link.title}
+                        </Button.Navigate>
+                    </Dropdown.Item>
+                ))}
             </Dropdown.Root>
         </>
     );
