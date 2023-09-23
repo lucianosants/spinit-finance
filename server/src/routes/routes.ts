@@ -48,4 +48,10 @@ router.get(
 
 router.post('/auth/login', login);
 
+router.get('/hello', async (req, res) => {
+	const msg = { msg: 'Hello World!' };
+	console.log(msg);
+	return res.status(200).json(msg);
+});
+
 export { router };
