@@ -6,6 +6,7 @@ import * as Card from './Card';
 import * as TransactionCard from './TransactionCard';
 import { Pagination } from './Pagination';
 import { Tooltip } from './Tooltip';
+import { Skeleton } from './Skeleton';
 
 export {
     Container,
@@ -16,4 +17,5 @@ export {
     TransactionCard,
     Pagination,
     Tooltip,
+    Skeleton,
 };
