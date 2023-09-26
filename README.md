@@ -14,7 +14,7 @@
 
 
 
-![Screenshot from 2023-09-19 15-33-49](https://github.com/lucianosants/TokiSur-Config/assets/93036812/26a18ce1-0aea-435f-bd68-229f969d8d84)
+![Screenshot from 2023-09-19 15-33-49](https://res.cloudinary.com/dirjfon9r/image/upload/v1695755988/Screenshot-from-2023-09-19-15-33-49_svlios.png)
 
 
 Esta é uma aplicação web desenvolvida para permitir que os usuários tenham um controle completo de suas finanças. Com o Spinit Finance, você pode acompanhar suas receitas e despesas, mantendo um registro detalhado do que entra e sai da sua conta.
